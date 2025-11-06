@@ -9,8 +9,23 @@ And also all the book data will store at the database for easy to add, edit and 
 ## DataBase:
 ![Database](/db.PNG)
 
-## How to run:
-Download [bookstore](https://github.com/weixiong15/PHP_Basic_BookStore_Website/tree/master/bookstore) folder and upload these file to your server or you can download an application called
-[XAMPP](https://www.apachefriends.org/index.html) or other. After, you need to import [database.sql](https://github.com/weixiong15/PHP_Basic_BookStore_Website/blob/master/bookstore/database.sql) to your server/XAMPP 
-first.
- 
+## How to run (Local/Preview)
+Backend (PHP):
+- Document root: Book-store-221706/bookstore
+- Entry: index.php
+- Router (built-in PHP server): router.php
+- Start command (from workspace root):
+  php -S 0.0.0.0:3001 -t bookstore bookstore/router.php
+
+Database:
+- Import Book-store-221706/bookstore/database.sql into your MySQL server.
+- Default credentials in code: host localhost:3306, user root, password empty (adjust as needed).
+
+Frontend (React) - optional:
+- Location: Book-store-221706/bookstorereact
+- Scripts:
+  - npm run dev
+  - npm run build
+  - npm run preview (port 3002)
+
+For more details see README_SETUP.md.
