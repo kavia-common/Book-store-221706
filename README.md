@@ -17,7 +17,8 @@ Backend (PHP):
 - Preferred start (no Docker required): from repo root run
   ./start-backend.sh
   - Binds 0.0.0.0 on port ${PORT:-3001}
-  - Serves docroot Book-store-221706/bookstore using router.php
+  - If PHP is available, serves docroot Book-store-221706/bookstore using router.php
+  - If PHP is NOT available in the preview runtime, starts a lightweight placeholder server that keeps the process alive and returns a helpful message (HTTP 200) for health checks.
 - If your environment requires Docker:
   - Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
   - Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend

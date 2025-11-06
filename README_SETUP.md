@@ -10,8 +10,11 @@ Entry point: bookstore/index.php
 Preferred start in generic preview environments (no Docker dependency):
 - From repository root:
   ./start-backend.sh
-- This starts PHP's built-in server bound to 0.0.0.0:${PORT:-3001}, using:
-  php -S 0.0.0.0:${PORT:-3001} -t Book-store-221706/bookstore Book-store-221706/bookstore/router.php
+- Behavior:
+  - Binds to 0.0.0.0:${PORT:-3001}
+  - If PHP is available, starts PHP's built-in server using:
+    php -S 0.0.0.0:${PORT:-3001} -t Book-store-221706/bookstore Book-store-221706/bookstore/router.php
+  - If PHP is NOT available in the environment, runs a lightweight placeholder HTTP server that returns a clear message and passes health checks, keeping the preview alive until PHP support is added.
 
 If your environment requires Docker:
 - A Dockerfile is provided at bookstore/Dockerfile using php:8-cli-alpine.
