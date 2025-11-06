@@ -53,7 +53,7 @@ fi
 # If we reach here, PHP is not present. Fall back to a placeholder server.
 log "PHP binary NOT found in this environment."
 log "Falling back to a lightweight placeholder server so the preview remains healthy."
-log "This placeholder returns a JSON message explaining PHP is unavailable."
+log "This placeholder serves index.html at / and JSON for /healthz."
 
 # Try to run a tiny Node.js HTTP server if node exists
 if command -v node >/dev/null 2>&1; then
@@ -61,25 +61,62 @@ if command -v node >/dev/null 2>&1; then
   # shellcheck disable=SC2016
   node -e '
     const http = require("http");
+    const fs = require("fs");
+    const path = require("path");
     const host = process.env.HOST || "0.0.0.0";
     const port = parseInt(process.env.PORT || "3001", 10);
+    const docroot = path.resolve(process.cwd(), "Book-store-221706/bookstore");
+
     const server = http.createServer((req, res) => {
-      const isHealth = req.url === "/" || req.url === "/health" || req.url === "/healthz" || req.url === "/readyz";
+      const url = req.url || "/";
+      if (url === "/healthz" || url === "/health" || url === "/readyz") {
+        const body = JSON.stringify({
+          ok: true,
+          service: "bookstore-php-backend",
+          mode: "placeholder-node",
+          port,
+          host,
+          timestamp: new Date().toISOString()
+        });
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.end(body);
+        return;
+      }
+
+      if (url === "/") {
+        const indexPath = path.join(docroot, "index.html");
+        fs.readFile(indexPath, (err, data) => {
+          if (err) {
+            const fallback = "<!doctype html><html><body><h1>Backend Placeholder</h1><p>PHP unavailable. Node placeholder running.</p><p>Docroot: " + docroot + "</p></body></html>";
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html; charset=utf-8");
+            res.end(fallback);
+            return;
+          }
+          res.statusCode = 200;
+          res.setHeader("Content-Type", "text/html; charset=utf-8");
+          res.end(data);
+        });
+        return;
+      }
+
+      // Default JSON for other paths
       const body = JSON.stringify({
         ok: true,
         message: "Backend placeholder running - PHP is not available in this environment.",
-        details: "When PHP becomes available, this script will serve the bookstore app via PHP built-in server.",
-        docroot: "Book-store-221706/bookstore",
-        router: "Book-store-221706/bookstore/router.php",
-        path: req.url
+        requestPath: url,
+        docroot
       });
-      res.statusCode = isHealth ? 200 : 200;
+      res.statusCode = 200;
       res.setHeader("Content-Type", "application/json; charset=utf-8");
       res.end(body);
     });
+
     server.listen(port, host, () => {
       console.log(`[placeholder] Listening on http://${host}:${port}`);
     });
+
     // Keep the process alive and handle signals gracefully
     process.on("SIGTERM", () => {
       server.close(() => process.exit(0));
