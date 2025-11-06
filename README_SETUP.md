@@ -37,6 +37,7 @@ Preferred start in preview environments:
 - Binds to 0.0.0.0:3002
 
 Manual scripts (run inside Book-store-221706/bookstorereact):
+- npm start: Starts dev server on 0.0.0.0:3002
 - npm run dev: Starts dev server on 0.0.0.0:3002
 - npm run build: Builds production assets to dist/
 - npm run preview: Serves built app on 0.0.0.0:3002
@@ -46,5 +47,5 @@ We intentionally use port 3002 for React to avoid conflicts with the PHP backend
 Exact commands the preview system can invoke:
 - Backend (non-Docker): ./start-backend.sh
 - Backend (Docker-based): docker build -t bookstore-backend ./Book-store-221706/bookstore && docker run -e PORT=3001 -p 3001:3001 bookstore-backend
-- Frontend (dev mode): cd Book-store-221706/bookstorereact && npm ci && npm run dev
+- Frontend (dev mode): cd Book-store-221706/bookstorereact && npm ci && npm start
   or (preview mode): cd Book-store-221706/bookstorereact && npm ci && npm run build && npm run preview

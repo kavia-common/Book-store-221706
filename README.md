@@ -32,6 +32,7 @@ Frontend (React) - optional:
   ./start-frontend.sh
   - Binds 0.0.0.0 on port 3002
 - Scripts (if running manually inside Book-store-221706/bookstorereact):
+  - npm start (port 3002)
   - npm run dev (port 3002)
   - npm run build
   - npm run preview (port 3002)
