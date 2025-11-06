@@ -9,8 +9,7 @@ export default defineConfig({
     // Bind to all interfaces to be reachable by preview/CI
     host: '0.0.0.0',
     port: 3000,
-    // Allow preview system hostname to connect (fixes "blocked host" error)
-    allowedHosts: ['vscode-internal-23619-beta.beta01.cloud.kavia.ai']
+    // allowedHosts can be adjusted by the preview environment if needed
   },
   preview: {
     host: '0.0.0.0',

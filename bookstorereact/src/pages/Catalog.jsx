@@ -6,6 +6,7 @@ import { books, categories } from '../data/books.js'
 import { useCart } from '../context/CartContext.jsx'
 
 export default function Catalog() {
+  // Mock-only catalog: search/filter/sort against local data; no API calls.
   const { add } = useCart()
   const [q, setQ] = useState('')
   const [cat, setCat] = useState('All')

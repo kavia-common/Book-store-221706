@@ -6,7 +6,7 @@ const UserContext = createContext(null)
 
 // PUBLIC_INTERFACE
 export function UserProvider({ children }) {
-  /** Provides mock user authentication state with simple validation. */
+  /** Provides mock user authentication state with simple validation (no network calls). */
   const [user, setUser] = useState(null)
 
   useEffect(() => {

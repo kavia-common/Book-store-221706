@@ -1,47 +1,21 @@
-# PHP Basic BookStore Website (For Study Purpose Only)
-This BookStore Website is using PHP and Database(MySQL). In this website you can Register and Edit Profile.
-And also all the book data will store at the database for easy to add, edit and delete.
+# Book Store Workspace
 
-## Home Page & Edit Profile Page:
-![HomePage](/homepage.PNG)
-![EditProfile](/editprofile.PNG)
+This repository contains:
+- A legacy PHP backend app under bookstore/ (not required for the React frontend)
+- A standalone React frontend app under bookstorereact/
 
-## DataBase:
-![Database](/db.PNG)
-
-## How to run (Local/Preview)
-Backend (PHP):
-- Document root: Book-store-221706/bookstore
-- Entry: index.php
-- Router (built-in PHP server): router.php
-- Preferred start (no Docker required): from repo root run
-  ./start-backend.sh
-  - Binds 0.0.0.0 on port ${PORT:-3001}
-  - If PHP is available, serves docroot Book-store-221706/bookstore using router.php
-  - If PHP is NOT available in the preview runtime, starts a lightweight placeholder server (Node/busybox/nc) that keeps the process alive and returns HTTP 200 for health checks with a clear message.
-  - Health endpoint always available at: http://localhost:${PORT:-3001}/healthz
-- Preview systems: Use ./start-backend.sh as the project start/preview command. Do NOT call `php -S ...` directly; the script handles environments with or without PHP.
-- If your environment requires Docker or you need a guaranteed PHP binary:
-  - Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
-  - Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend
-
-Database:
-- Import Book-store-221706/bookstore/database.sql into your MySQL server.
-- Default credentials in code: host localhost:3306, user root, password empty (adjust as needed).
-
-Frontend (React) - optional:
-- Location: Book-store-221706/bookstorereact
-- Preferred start (dev): from repo root run
+Standalone React Frontend
+- See Book-store-221706/bookstorereact/README.md for detailed instructions.
+- Quick start:
   ./start-frontend.sh
-  - Binds 0.0.0.0 on port 3000
-- Scripts (if running manually inside Book-store-221706/bookstorereact):
-  - npm start (port 3000)
-  - npm run dev (port 3000)
-  - npm run build
-  - npm run preview (port 3000)
+  (or: cd Book-store-221706/bookstorereact && npm install && npm run dev)
+
+Legacy PHP Backend (optional; not needed for frontend)
+- Exists only for study/reference.
+- Preferred start:
+  ./start-backend.sh
+- Health endpoint: http://localhost:${PORT:-3001}/healthz
 
 Notes:
-- We intentionally use port 3001 for PHP backend and 3000 for React to avoid conflicts.
-- Ensure your preview system/runner binds to 0.0.0.0 so ports are accessible.
-
-For more details see README_SETUP.md.
+- The React frontend is fully mock-driven; it does not connect to PHP or any backend.
+- Ports: 3000 (frontend), 3001 (backend).

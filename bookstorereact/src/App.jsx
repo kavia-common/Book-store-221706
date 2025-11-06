@@ -13,9 +13,11 @@ import { CartProvider } from './context/CartContext.jsx'
 import { UserProvider, useUser } from './context/UserContext.jsx'
 import theme from './theme.js'
 
-// PUBLIC_INTERFACE
+ // PUBLIC_INTERFACE
 export default function App() {
-  /** App root: sets up Theme, Context providers, and routes for the Book Store UI. */
+  /** App root: sets up Theme, Context providers, and routes for the Book Store UI.
+   * No backend/PHP references; all state and data are local/mock.
+   */
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
