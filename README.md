@@ -18,8 +18,8 @@ Backend (PHP):
   ./start-backend.sh
   - Binds 0.0.0.0 on port ${PORT:-3001}
   - If PHP is available, serves docroot Book-store-221706/bookstore using router.php
-  - If PHP is NOT available in the preview runtime, starts a lightweight placeholder server that keeps the process alive and returns a helpful message (HTTP 200) for health checks.
-- If your environment requires Docker:
+  - If PHP is NOT available in the preview runtime, starts a lightweight placeholder server (Node/busybox/nc) that keeps the process alive and returns HTTP 200 for health checks with a clear message.
+- If your environment requires Docker or you need a guaranteed PHP binary:
   - Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
   - Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend
 

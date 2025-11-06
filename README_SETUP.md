@@ -14,9 +14,10 @@ Preferred start in generic preview environments (no Docker dependency):
   - Binds to 0.0.0.0:${PORT:-3001}
   - If PHP is available, starts PHP's built-in server using:
     php -S 0.0.0.0:${PORT:-3001} -t Book-store-221706/bookstore Book-store-221706/bookstore/router.php
-  - If PHP is NOT available in the environment, runs a lightweight placeholder HTTP server that returns a clear message and passes health checks, keeping the preview alive until PHP support is added.
+  - If PHP is NOT available in the environment, runs a lightweight placeholder HTTP server (Node/busybox/nc) that returns a clear message and passes health checks, keeping the preview alive until PHP support is added.
+  - This avoids "bash: php: command not found" breaking preview runs.
 
-If your environment requires Docker:
+If your environment requires Docker or you want a guaranteed PHP runtime:
 - A Dockerfile is provided at bookstore/Dockerfile using php:8-cli-alpine.
 - Build and run (from repository root):
   docker build -t bookstore-backend ./Book-store-221706/bookstore
