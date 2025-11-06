@@ -7,39 +7,44 @@ This repository contains:
 ## PHP Backend (bookstore/)
 Entry point: bookstore/index.php
 
-Recommended: Self-contained Docker start (no system PHP required)
+Preferred start in generic preview environments (no Docker dependency):
+- From repository root:
+  ./start-backend.sh
+- This starts PHP's built-in server bound to 0.0.0.0:${PORT:-3001}, using:
+  php -S 0.0.0.0:${PORT:-3001} -t Book-store-221706/bookstore Book-store-221706/bookstore/router.php
+
+If your environment requires Docker:
 - A Dockerfile is provided at bookstore/Dockerfile using php:8-cli-alpine.
-- The container serves the app using PHP's built-in server with router.php.
-- The server listens on $PORT (defaults to 3001).
-
-Build and run (from repository root):
-- Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
-- Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend
-
-If the preview system runs Dockerfiles automatically, it should detect bookstore/Dockerfile and run:
-CMD: php -S 0.0.0.0:$PORT -t /app /app/router.php
-
-Alternative (only if system PHP is available locally):
-- Document root: bookstore/
-- Router: bookstore/router.php
-- Start command (from Book-store-221706/):
-  php -S 0.0.0.0:3001 -t bookstore bookstore/router.php
+- Build and run (from repository root):
+  docker build -t bookstore-backend ./Book-store-221706/bookstore
+  docker run -e PORT=3001 -p 3001:3001 bookstore-backend
 
 Notes:
+- Document root: Book-store-221706/bookstore
+- Router: Book-store-221706/bookstore/router.php
+- The server must bind to 0.0.0.0 to be reachable by the preview system.
+
+Database:
 - This project expects a MySQL database called BookStore with tables defined in bookstore/database.sql
 - Credentials in source code default to localhost:3306 with user root and empty password. Adjust for your environment as needed.
 
 ## React Frontend (bookstorereact/)
 Scaffolded with Vite + React.
 
-Scripts (run inside Book-store-221706/bookstorereact):
+Preferred start in preview environments:
+- From repository root:
+  ./start-frontend.sh
+- Binds to 0.0.0.0:3002
+
+Manual scripts (run inside Book-store-221706/bookstorereact):
 - npm run dev: Starts dev server on 0.0.0.0:3002
 - npm run build: Builds production assets to dist/
 - npm run preview: Serves built app on 0.0.0.0:3002
 
 We intentionally use port 3002 for React to avoid conflicts with the PHP backend on 3001.
 
-Exact commands the preview system should invoke:
+Exact commands the preview system can invoke:
+- Backend (non-Docker): ./start-backend.sh
 - Backend (Docker-based): docker build -t bookstore-backend ./Book-store-221706/bookstore && docker run -e PORT=3001 -p 3001:3001 bookstore-backend
 - Frontend (dev mode): cd Book-store-221706/bookstorereact && npm ci && npm run dev
   or (preview mode): cd Book-store-221706/bookstorereact && npm ci && npm run build && npm run preview
