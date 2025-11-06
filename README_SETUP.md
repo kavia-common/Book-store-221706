@@ -7,12 +7,23 @@ This repository contains:
 ## PHP Backend (bookstore/)
 Entry point: bookstore/index.php
 
-Serve locally using PHP built-in server:
+Recommended: Self-contained Docker start (no system PHP required)
+- A Dockerfile is provided at bookstore/Dockerfile using php:8-cli-alpine.
+- The container serves the app using PHP's built-in server with router.php.
+- The server listens on $PORT (defaults to 3001).
+
+Build and run (from repository root):
+- Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
+- Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend
+
+If the preview system runs Dockerfiles automatically, it should detect bookstore/Dockerfile and run:
+CMD: php -S 0.0.0.0:$PORT -t /app /app/router.php
+
+Alternative (only if system PHP is available locally):
 - Document root: bookstore/
 - Router: bookstore/router.php
-
-Start command (from workspace root):
-php -S 0.0.0.0:3001 -t bookstore bookstore/router.php
+- Start command (from Book-store-221706/):
+  php -S 0.0.0.0:3001 -t bookstore bookstore/router.php
 
 Notes:
 - This project expects a MySQL database called BookStore with tables defined in bookstore/database.sql
@@ -21,11 +32,14 @@ Notes:
 ## React Frontend (bookstorereact/)
 Scaffolded with Vite + React.
 
-Scripts (run inside bookstorereact):
-- npm run dev: Start dev server (default Vite port 5173)
-- npm run build: Build production assets to dist/
-- npm run preview: Preview built app on port 3002
+Scripts (run inside Book-store-221706/bookstorereact):
+- npm run dev: Starts dev server on 0.0.0.0:3002
+- npm run build: Builds production assets to dist/
+- npm run preview: Serves built app on 0.0.0.0:3002
 
-We intentionally configure preview to use port 3002 to avoid conflicts with the PHP backend that uses 3001.
+We intentionally use port 3002 for React to avoid conflicts with the PHP backend on 3001.
 
-No environment variables are required by default.
+Exact commands the preview system should invoke:
+- Backend (Docker-based): docker build -t bookstore-backend ./Book-store-221706/bookstore && docker run -e PORT=3001 -p 3001:3001 bookstore-backend
+- Frontend (dev mode): cd Book-store-221706/bookstorereact && npm ci && npm run dev
+  or (preview mode): cd Book-store-221706/bookstorereact && npm ci && npm run build && npm run preview

@@ -6,10 +6,11 @@ export default defineConfig({
   /** Vite configuration for Book-Store-Frontend (React). */
   plugins: [react()],
   server: {
-    host: true
+    host: '0.0.0.0',
+    port: 3002
   },
   preview: {
-    host: true,
+    host: '0.0.0.0',
     port: 3002
   }
 })

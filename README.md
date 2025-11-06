@@ -14,8 +14,11 @@ Backend (PHP):
 - Document root: Book-store-221706/bookstore
 - Entry: index.php
 - Router (built-in PHP server): router.php
-- Start command (from workspace root):
-  php -S 0.0.0.0:3001 -t bookstore bookstore/router.php
+- Self-contained start without system PHP:
+  - Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
+  - Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend
+- If PHP is available locally, alternative:
+  php -S 0.0.0.0:3001 -t Book-store-221706/bookstore Book-store-221706/bookstore/router.php
 
 Database:
 - Import Book-store-221706/bookstore/database.sql into your MySQL server.
@@ -24,7 +27,7 @@ Database:
 Frontend (React) - optional:
 - Location: Book-store-221706/bookstorereact
 - Scripts:
-  - npm run dev
+  - npm run dev (port 3002)
   - npm run build
   - npm run preview (port 3002)
 
