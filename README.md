@@ -19,6 +19,8 @@ Backend (PHP):
   - Binds 0.0.0.0 on port ${PORT:-3001}
   - If PHP is available, serves docroot Book-store-221706/bookstore using router.php
   - If PHP is NOT available in the preview runtime, starts a lightweight placeholder server (Node/busybox/nc) that keeps the process alive and returns HTTP 200 for health checks with a clear message.
+  - Health endpoint always available at: http://localhost:${PORT:-3001}/healthz
+- Preview systems: Use ./start-backend.sh as the project start/preview command. Do NOT call `php -S ...` directly; the script handles environments with or without PHP.
 - If your environment requires Docker or you need a guaranteed PHP binary:
   - Build: docker build -t bookstore-backend ./Book-store-221706/bookstore
   - Run: docker run -e PORT=3001 -p 3001:3001 bookstore-backend

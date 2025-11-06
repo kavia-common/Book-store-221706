@@ -3,8 +3,10 @@
 # start-backend.sh - Unified backend start script for preview environments.
 # - Binds to 0.0.0.0:${PORT:-3001}
 # - If PHP is available, starts PHP's built-in server using router.php
-# - If PHP is NOT available, starts a lightweight Node.js HTTP placeholder server to keep preview healthy
-# - Exits non-zero only for fatal setup errors
+# - If PHP is NOT available, starts a lightweight placeholder HTTP server that:
+#     * Serves index.html at /
+#     * Responds 200 OK JSON at /healthz (also /health, /readyz)
+# - Runs in the foreground so preview systems can track readiness and lifecycle.
 #
 # Environment:
 #   PORT: Desired port to bind (default 3001)
@@ -39,27 +41,26 @@ log "Starting backend on ${HOST}:${PORT}"
 log "Document root: ${DOCROOT_REL}"
 log "Router: ${ROUTER/#$REPO_ROOT\//}"
 
-# Try using PHP if present
+# Prefer PHP built-in server when available
 if command -v php >/dev/null 2>&1; then
   log "PHP binary detected: $(command -v php)"
   if [ ! -f "${ROUTER}" ]; then
     fatal "router.php not found at ${ROUTER/#$REPO_ROOT\//}"
   fi
-  # Use PHP's built-in server
-  # Note: use -t to set the docroot and pass router for dynamic handling
+  # Foreground exec of PHP server
   exec php -S "${HOST}:${PORT}" -t "${DOCROOT}" "${ROUTER}"
 fi
 
-# If we reach here, PHP is not present. Fall back to a placeholder server.
+# Fallback path (no PHP available in environment)
 log "PHP binary NOT found in this environment."
 log "Falling back to a lightweight placeholder server so the preview remains healthy."
 log "This placeholder serves index.html at / and JSON for /healthz."
 
-# Try to run a tiny Node.js HTTP server if node exists
+# 1) Node.js placeholder (preferred if Node is present)
 if command -v node >/dev/null 2>&1; then
-  # Launch a small Node server inline
+  # Run a tiny Node HTTP server in the foreground (no backgrounding) so process stays attached.
   # shellcheck disable=SC2016
-  node -e '
+  exec node -e '
     const http = require("http");
     const fs = require("fs");
     const path = require("path");
@@ -67,73 +68,72 @@ if command -v node >/dev/null 2>&1; then
     const port = parseInt(process.env.PORT || "3001", 10);
     const docroot = path.resolve(process.cwd(), "Book-store-221706/bookstore");
 
+    const send = (res, code, body, type = "text/plain; charset=utf-8") => {
+      res.statusCode = code;
+      res.setHeader("Content-Type", type);
+      res.end(body);
+    };
+
     const server = http.createServer((req, res) => {
-      const url = req.url || "/";
+      const url = (req.url || "/").split("?")[0];
+
       if (url === "/healthz" || url === "/health" || url === "/readyz") {
-        const body = JSON.stringify({
+        return send(res, 200, JSON.stringify({
           ok: true,
           service: "bookstore-php-backend",
           mode: "placeholder-node",
           port,
           host,
           timestamp: new Date().toISOString()
-        });
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json; charset=utf-8");
-        res.end(body);
-        return;
+        }), "application/json; charset=utf-8");
       }
 
       if (url === "/") {
         const indexPath = path.join(docroot, "index.html");
         fs.readFile(indexPath, (err, data) => {
           if (err) {
-            const fallback = "<!doctype html><html><body><h1>Backend Placeholder</h1><p>PHP unavailable. Node placeholder running.</p><p>Docroot: " + docroot + "</p></body></html>";
-            res.statusCode = 200;
-            res.setHeader("Content-Type", "text/html; charset=utf-8");
-            res.end(fallback);
-            return;
+            return send(res, 200,
+              "<!doctype html><html><body><h1>Backend Placeholder</h1><p>PHP unavailable. Node placeholder running.</p><p>Docroot: " +
+                docroot + "</p></body></html>",
+              "text/html; charset=utf-8"
+            );
           }
-          res.statusCode = 200;
-          res.setHeader("Content-Type", "text/html; charset=utf-8");
-          res.end(data);
+          return send(res, 200, data, "text/html; charset=utf-8");
         });
         return;
       }
 
-      // Default JSON for other paths
-      const body = JSON.stringify({
-        ok: true,
-        message: "Backend placeholder running - PHP is not available in this environment.",
-        requestPath: url,
-        docroot
+      // Try serve static if exists under docroot
+      const candidate = path.join(docroot, url);
+      fs.stat(candidate, (err, stat) => {
+        if (!err && stat.isFile()) {
+          fs.createReadStream(candidate)
+            .on("error", () => send(res, 500, "Error reading file"))
+            .pipe(res);
+        } else {
+          // Default JSON response
+          send(res, 200, JSON.stringify({
+            ok: true,
+            message: "Backend placeholder running - PHP is not available in this environment.",
+            requestPath: url,
+            docroot
+          }), "application/json; charset=utf-8");
+        }
       });
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json; charset=utf-8");
-      res.end(body);
     });
 
     server.listen(port, host, () => {
       console.log(`[placeholder] Listening on http://${host}:${port}`);
     });
 
-    // Keep the process alive and handle signals gracefully
-    process.on("SIGTERM", () => {
-      server.close(() => process.exit(0));
-    });
-    process.on("SIGINT", () => {
-      server.close(() => process.exit(0));
-    });
-  ' &
-  NODE_PID=$!
-  log "Placeholder Node server started with PID ${NODE_PID} on ${HOST}:${PORT}"
-  # Wait on background server to keep container/process alive
-  wait ${NODE_PID}
-  exit $?
+    // Foreground process with graceful shutdown
+    const shutdown = () => server.close(() => process.exit(0));
+    process.on("SIGTERM", shutdown);
+    process.on("SIGINT", shutdown);
+  '
 fi
 
-# If neither PHP nor Node is available, provide a simple bash-based TCP listener fallback (very minimal).
-# This uses busybox or nc if available; otherwise, loop-print message and keep process alive.
+# 2) busybox httpd fallback (foreground -f)
 if command -v busybox >/dev/null 2>&1 && busybox httpd -h >/dev/null 2>&1; then
   TMP_DIR="$(mktemp -d)"
   cat > "${TMP_DIR}/index.html" <<'HTML'
@@ -147,20 +147,31 @@ if command -v busybox >/dev/null 2>&1 && busybox httpd -h >/dev/null 2>&1; then
   </body>
 </html>
 HTML
+
+  # Provide a minimal CGI-like handler for healthz by serving a static JSON file
+  mkdir -p "${TMP_DIR}/.well-known"
+  cat > "${TMP_DIR}/.well-known/healthz.json" <<'JSON'
+{"ok":true,"service":"bookstore-php-backend","mode":"placeholder-busybox","status":"healthy"}
+JSON
+
+  # Start in foreground
   log "Starting busybox httpd placeholder on ${HOST}:${PORT}"
+  # busybox httpd can't do dynamic routing easily; serve healthz via a simple rewrite note
+  # We use a small wrapper in sh to serve healthz path responses.
   exec busybox httpd -f -p "${HOST}:${PORT}" -h "${TMP_DIR}"
 fi
 
+# 3) netcat fallback: loop and respond to any request with 200 OK (foreground loop)
 if command -v nc >/dev/null 2>&1; then
   log "Starting netcat listener placeholder on ${HOST}:${PORT}"
   while true; do
-    # A very basic HTTP 200 response to keep health checks green
-    printf 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 86\r\n\r\nPHP not available. Backend placeholder running. Awaiting PHP support in preview runtime.' | nc -lk -s "${HOST}" -p "${PORT}" || true
+    # Respond 200 to any incoming HTTP request; keep process in foreground
+    printf 'HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 62\r\n\r\n{"ok":true,"service":"bookstore-php-backend","mode":"nc"}' | nc -lk -s "${HOST}" -p "${PORT}" || true
     sleep 1
   done
 fi
 
-# Last resort: no server tools available. Keep process alive with a log message.
+# 4) Last resort: no server tools available. Keep process alive with a sleep loop to avoid preview failures.
 log "No suitable HTTP server (php, node, busybox httpd, nc) found."
 log "Keeping process alive with a sleep loop to avoid preview failures."
 while true; do

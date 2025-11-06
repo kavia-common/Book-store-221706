@@ -50,6 +50,9 @@ We intentionally use port 3000 for React to avoid conflicts with the PHP backend
 
 Exact commands the preview system can invoke:
 - Backend (non-Docker): ./start-backend.sh
+  - Binds 0.0.0.0:${PORT:-3001}
+  - Serves /healthz for readiness checks
+  - Avoids direct `php -S` when PHP is missing and uses a placeholder server instead
 - Backend (Docker-based): docker build -t bookstore-backend ./Book-store-221706/bookstore && docker run -e PORT=3001 -p 3001:3001 bookstore-backend
 - Frontend (dev mode): cd Book-store-221706/bookstorereact && npm ci && npm start
   or (preview mode): cd Book-store-221706/bookstorereact && npm ci && npm run build && npm run preview
