@@ -30,15 +30,15 @@ Frontend (React) - optional:
 - Location: Book-store-221706/bookstorereact
 - Preferred start (dev): from repo root run
   ./start-frontend.sh
-  - Binds 0.0.0.0 on port 3002
+  - Binds 0.0.0.0 on port 3000
 - Scripts (if running manually inside Book-store-221706/bookstorereact):
-  - npm start (port 3002)
-  - npm run dev (port 3002)
+  - npm start (port 3000)
+  - npm run dev (port 3000)
   - npm run build
-  - npm run preview (port 3002)
+  - npm run preview (port 3000)
 
 Notes:
-- We intentionally use port 3001 for PHP backend and 3002 for React to avoid conflicts.
+- We intentionally use port 3001 for PHP backend and 3000 for React to avoid conflicts.
 - Ensure your preview system/runner binds to 0.0.0.0 so ports are accessible.
 
 For more details see README_SETUP.md.

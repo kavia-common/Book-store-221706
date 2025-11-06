@@ -18,7 +18,7 @@ export default function App() {
           <br />
           Build: npm run build
           <br />
-          Preview: npm run preview (port 3002)
+          Preview: npm run preview (port 3000)
         </p>
       </section>
     </div>
