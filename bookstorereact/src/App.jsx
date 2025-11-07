@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Cart from './pages/Cart';
 import BookDetail from './pages/BookDetail';
+import Signup from './pages/Signup';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 
@@ -22,6 +23,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/signup" element={<Signup />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/books/:id" element={<BookDetail />} />
             </Routes>

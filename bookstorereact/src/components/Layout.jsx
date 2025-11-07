@@ -36,7 +36,7 @@ export default function Layout({ children }) {
             ) : (
               <>
                 <Link to="/login" className="btn" style={{ textDecoration:'none' }}>Login</Link>
-                <Link to="/register" className="btn secondary" style={{ textDecoration:'none' }}>Register</Link>
+                <Link to="/signup" className="btn secondary" style={{ textDecoration:'none' }}>Sign up</Link>
               </>
             )}
           </nav>
