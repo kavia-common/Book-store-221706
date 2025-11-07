@@ -11,7 +11,7 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html
 # Copy application code
 COPY bookstore/ ${APACHE_DOCUMENT_ROOT}/
 
-# Make sure the entrypoint is executable
+# Copy and ensure the entrypoint is executable (LF endings recommended)
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
