@@ -23,7 +23,7 @@ fi
 
 # Ensure document root exists
 DOC_ROOT="${APACHE_DOCUMENT_ROOT:-/var/www/html}"
-if [[ ! -d "$DOC_ROOT" ]]; then
+if [ ! -d "$DOC_ROOT" ]; then
   echo "Creating document root at $DOC_ROOT"
   mkdir -p "$DOC_ROOT"
 fi
@@ -44,3 +44,4 @@ fi
 
 # Exec Apache in foreground (PID 1 handoff)
 exec apache2-foreground
+

@@ -11,12 +11,15 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html
 # Copy application code
 COPY bookstore/ ${APACHE_DOCUMENT_ROOT}/
 
-# Copy and ensure the entrypoint is executable (LF endings recommended)
+# Copy and ensure the entrypoint is executable (LF endings, no BOM)
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Apache runs on port 80 by default
 EXPOSE 80
 
-# Use exec-form ENTRYPOINT for PID 1 signal handling
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Add a basic healthcheck for Apache responding
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD curl -fsS http://localhost/ || exit 1
+
+# Use exec-form ENTRYPOINT. Explicitly use bash to avoid sh vs bash differences on some runtimes.
+ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
