@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../api/client';
 import { useCart } from '../contexts/CartContext';
+import { withImageFallback } from '../utils/imageFallback';
 
 export default function BookDetail() {
   const { id } = useParams();
@@ -32,7 +33,7 @@ export default function BookDetail() {
     <div className="card">
       <div style={{ display:'flex', gap:24, alignItems:'flex-start', flexWrap:'wrap' }}>
         <div style={{ width:280, aspectRatio:'3 / 4', background:'#eef3f8', borderRadius:8, display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden' }}>
-          {book.image ? <img src={book.image} alt={book.title} style={{ width:'100%', height:'100%', objectFit:'contain' }} /> : <span>No Image</span>}
+          {book.image ? <img src={book.image} alt={book.title} onError={withImageFallback()} style={{ width:'100%', height:'100%', objectFit:'contain' }} /> : <span>No Image</span>}
         </div>
         <div style={{ flex:1, minWidth:240 }}>
           <h2 style={{ margin:'8px 0' }}>{book.title || book.BookTitle}</h2>

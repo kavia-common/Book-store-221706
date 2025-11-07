@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { api } from '../api/client';
 import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
+import { withImageFallback } from '../utils/imageFallback';
 
 const FALLBACK = [
   { id:'BK-001', title:'The Pragmatic Programmer', isbn:'978-0201616224', price:189.00, author:'Andrew Hunt, David Thomas', type:'Software Engineering', image:'/assets/covers/the-pragmatic-programmer.svg' },
@@ -50,7 +51,7 @@ export default function Home() {
             {books.map((b) => (
               <article className="card product" key={b.id || b.BookID}>
                 <div style={{ width: '100%', aspectRatio: '3 / 4', background: '#f2f5f8', borderRadius: 6, marginBottom: 8, display: 'flex', alignItems:'center', justifyContent:'center', color:'#668', overflow:'hidden' }}>
-                  {b.image ? <img src={b.image} alt={b.title || b.BookTitle} style={{ width: '100%', height: '100%', objectFit: 'contain' }} /> : <span>No Image</span>}
+                  {b.image ? <img src={b.image} alt={b.title || b.BookTitle} onError={withImageFallback()} style={{ width: '100%', height: '100%', objectFit: 'contain' }} /> : <span>No Image</span>}
                 </div>
                 <div style={{ fontWeight: 600, marginBottom: 6, lineHeight: '20px' }}>{b.title || b.BookTitle}</div>
                 <div className="small">ISBN: {b.isbn || b.ISBN}</div>
@@ -80,7 +81,7 @@ export default function Home() {
               <li key={it.id || `${it.bookId}-${it.title}`}>
                 <div style={{ display:'flex', gap:12, alignItems:'center' }}>
                   <div style={{ width:56, height:56, background:'#eef3f8', borderRadius:4, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                    {it.image ? <img src={it.image} alt={it.title} style={{ maxWidth:'100%', maxHeight:'100%' }} /> : <span className="small">No Image</span>}
+                    {it.image ? <img src={it.image} alt={it.title} onError={withImageFallback()} style={{ maxWidth:'100%', maxHeight:'100%' }} /> : <span className="small">No Image</span>}
                   </div>
                   <div style={{ flex:1 }}>
                     <div style={{ fontWeight:600 }}>{it.title}</div>

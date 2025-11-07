@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
+import { withImageFallback } from '../utils/imageFallback';
 
 export default function Cart() {
   const { items, update, remove, clear, loading } = useCart();
@@ -21,7 +22,7 @@ export default function Cart() {
                 <li key={it.id}>
                   <div style={{ display:'flex', gap:12, alignItems:'center' }}>
                     <div style={{ width:64, height:64, background:'#eef3f8', borderRadius:6, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                      {it.image ? <img src={it.image} alt={it.title} style={{ maxWidth:'100%', maxHeight:'100%' }}/> : <span className="small">No Image</span>}
+                      {it.image ? <img src={it.image} alt={it.title} onError={withImageFallback()} style={{ maxWidth:'100%', maxHeight:'100%' }}/> : <span className="small">No Image</span>}
                     </div>
                     <div style={{ flex:1 }}>
                       <div style={{ fontWeight:'bold' }}>{it.title}</div>

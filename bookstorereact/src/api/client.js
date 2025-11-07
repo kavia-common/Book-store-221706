@@ -5,21 +5,23 @@
 
 /**
  * Mock catalog: refreshed dataset (12 items), frontend-only.
- * Cover images are located under public/assets/covers.
+ * Cover images now use HTTPS URLs from reputable sources (Open Library covers),
+ * which serve CORS-safe direct image URLs.
  */
 const BOOKS = [
-  { id:'BK-001', title:'The Pragmatic Programmer', isbn:'978-0201616224', price:189.00, author:'Andrew Hunt, David Thomas', type:'Software Engineering', image:'/assets/covers/the-pragmatic-programmer.svg' },
-  { id:'BK-002', title:'Clean Code', isbn:'978-0132350884', price:172.50, author:'Robert C. Martin', type:'Programming', image:'/assets/covers/clean-code.svg' },
-  { id:'BK-003', title:"You Don't Know JS Yet", isbn:'978-1091210094', price:98.00, author:'Kyle Simpson', type:'JavaScript', image:'/assets/covers/you-dont-know-js.svg' },
-  { id:'BK-004', title:'Designing Data-Intensive Applications', isbn:'978-1449373320', price:230.00, author:'Martin Kleppmann', type:'Data', image:'/assets/covers/designing-data-intensive-applications.svg' },
-  { id:'BK-005', title:'Atomic Habits', isbn:'978-0735211292', price:88.90, author:'James Clear', type:'Self-help', image:'/assets/covers/atomic-habits.svg' },
-  { id:'BK-006', title:'Refactoring (2nd Edition)', isbn:'978-0134757599', price:215.00, author:'Martin Fowler', type:'Software Engineering', image:'/assets/covers/refactoring.svg' },
-  { id:'BK-007', title:'Deep Work', isbn:'978-1455586691', price:79.00, author:'Cal Newport', type:'Productivity', image:'/assets/covers/deep-work.svg' },
-  { id:'BK-008', title:'Eloquent JavaScript', isbn:'978-1593279509', price:120.00, author:'Marijn Haverbeke', type:'JavaScript', image:'/assets/covers/eloquent-javascript.svg' },
-  { id:'BK-009', title:'The Clean Coder', isbn:'978-0137081074', price:165.00, author:'Robert C. Martin', type:'Programming', image:'/assets/covers/clean-code.svg' },
-  { id:'BK-010', title:'Domain-Driven Design', isbn:'978-0321125217', price:240.00, author:'Eric Evans', type:'Architecture', image:'/assets/covers/the-pragmatic-programmer.svg' },
-  { id:'BK-011', title:'Patterns of Enterprise Application Architecture', isbn:'978-0321127426', price:255.00, author:'Martin Fowler', type:'Architecture', image:'/assets/covers/refactoring.svg' },
-  { id:'BK-012', title:'Continuous Delivery', isbn:'978-0321601919', price:210.00, author:'Jez Humble, David Farley', type:'DevOps', image:'/assets/covers/designing-data-intensive-applications.svg' }
+  // Using Open Library cover API: https://covers.openlibrary.org/
+  { id:'BK-001', title:'The Pragmatic Programmer', isbn:'978-0201616224', price:189.00, author:'Andrew Hunt, David Thomas', type:'Software Engineering', image:'https://covers.openlibrary.org/b/isbn/9780201616224-L.jpg' },
+  { id:'BK-002', title:'Clean Code', isbn:'978-0132350884', price:172.50, author:'Robert C. Martin', type:'Programming', image:'https://covers.openlibrary.org/b/isbn/9780132350884-L.jpg' },
+  { id:'BK-003', title:"You Don\'t Know JS Yet", isbn:'978-1091210094', price:98.00, author:'Kyle Simpson', type:'JavaScript', image:'https://covers.openlibrary.org/b/isbn/9781091210094-L.jpg' },
+  { id:'BK-004', title:'Designing Data-Intensive Applications', isbn:'978-1449373320', price:230.00, author:'Martin Kleppmann', type:'Data', image:'https://covers.openlibrary.org/b/isbn/9781449373320-L.jpg' },
+  { id:'BK-005', title:'Atomic Habits', isbn:'978-0735211292', price:88.90, author:'James Clear', type:'Self-help', image:'https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg' },
+  { id:'BK-006', title:'Refactoring (2nd Edition)', isbn:'978-0134757599', price:215.00, author:'Martin Fowler', type:'Software Engineering', image:'https://covers.openlibrary.org/b/isbn/9780134757599-L.jpg' },
+  { id:'BK-007', title:'Deep Work', isbn:'978-1455586691', price:79.00, author:'Cal Newport', type:'Productivity', image:'https://covers.openlibrary.org/b/isbn/9781455586691-L.jpg' },
+  { id:'BK-008', title:'Eloquent JavaScript', isbn:'978-1593279509', price:120.00, author:'Marijn Haverbeke', type:'JavaScript', image:'https://covers.openlibrary.org/b/isbn/9781593279509-L.jpg' },
+  { id:'BK-009', title:'The Clean Coder', isbn:'978-0137081074', price:165.00, author:'Robert C. Martin', type:'Programming', image:'https://covers.openlibrary.org/b/isbn/9780137081074-L.jpg' },
+  { id:'BK-010', title:'Domain-Driven Design', isbn:'978-0321125217', price:240.00, author:'Eric Evans', type:'Architecture', image:'https://covers.openlibrary.org/b/isbn/9780321125217-L.jpg' },
+  { id:'BK-011', title:'Patterns of Enterprise Application Architecture', isbn:'978-0321127426', price:255.00, author:'Martin Fowler', type:'Architecture', image:'https://covers.openlibrary.org/b/isbn/9780321127426-L.jpg' },
+  { id:'BK-012', title:'Continuous Delivery', isbn:'978-0321601919', price:210.00, author:'Jez Humble, David Farley', type:'DevOps', image:'https://covers.openlibrary.org/b/isbn/9780321601919-L.jpg' }
 ];
 
 let CURRENT_USER = null;
