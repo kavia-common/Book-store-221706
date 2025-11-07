@@ -17,7 +17,7 @@ export default function Layout({ children }) {
               <span aria-hidden="true" style={{
                 display:'inline-block',
                 width:36, height:24,
-                backgroundImage:'url(/assets/home.png)',
+                backgroundImage:'url(/assets/home.svg)',
                 backgroundSize:'contain',
                 backgroundRepeat:'no-repeat',
                 backgroundPosition:'left center'

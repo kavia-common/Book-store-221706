@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="880" viewBox="0 0 640 880" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#0E4168"/>
+      <stop offset="1" stop-color="#1B6C9C"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="880" fill="url(#g)"/>
+  <g transform="translate(40,60)">
+    <rect x="0" y="0" width="560" height="760" rx="12" ry="12" fill="#ffffff" opacity="0.08"/>
+    <text x="0" y="60" font-family="Helvetica, Arial, sans-serif" font-size="42" fill="#FFFFFF" font-weight="700">The Pragmatic</text>
+    <text x="0" y="110" font-family="Helvetica, Arial, sans-serif" font-size="42" fill="#FFFFFF" font-weight="700">Programmer</text>
+    <text x="0" y="170" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#E6EFF6">Andrew Hunt, David Thomas</text>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="880" viewBox="0 0 640 880" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="880" fill="#D32F2F"/>
+  <g transform="translate(40,80)">
+    <text x="0" y="60" font-family="Helvetica, Arial, sans-serif" font-size="54" fill="#fff" font-weight="700">Refactoring</text>
+    <text x="0" y="110" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#fff">Martin Fowler</text>
+  </g>
+</svg>

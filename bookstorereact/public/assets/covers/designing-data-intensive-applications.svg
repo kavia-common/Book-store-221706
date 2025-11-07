@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="880" viewBox="0 0 640 880" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="880" fill="#ffffff"/>
+  <rect x="0" y="0" width="640" height="200" fill="#0E4168"/>
+  <g transform="translate(40,60)">
+    <text x="0" y="48" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#fff" font-weight="600">Designing Data-Intensive</text>
+    <text x="0" y="86" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#fff" font-weight="600">Applications</text>
+  </g>
+  <g transform="translate(40,260)">
+    <rect x="0" y="0" width="560" height="480" fill="#E6EFF6"/>
+    <text x="0" y="40" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#0E4168">Martin Kleppmann</text>
+  </g>
+</svg>

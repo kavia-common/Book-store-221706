@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 
 const FALLBACK = [
-  { BookID:'B-001', BookTitle:'Lonely Planet Australia (Travel Guide)', ISBN:'123-456-789-1', Price:136, Author:'Lonely Planet', Type:'Travel' },
-  { BookID:'B-002', BookTitle:'Crew Resource Management, Second Edition', ISBN:'123-456-789-2', Price:599, Author:'Barbara Kanki', Type:'Technical' },
-  { BookID:'B-003', BookTitle:'CCNA Routing and Switching 200-125 Official Cert Guide Library', ISBN:'123-456-789-3', Price:329, Author:'Cisco Press', Type:'Technology' },
-  { BookID:'B-004', BookTitle:'Easy Vegetarian Slow Cooker Cookbook', ISBN:'123-456-789-4', Price:75.9, Author:'Rockridge Press', Type:'Food' },
+  { id:'BK-001', title:'The Pragmatic Programmer', isbn:'978-0201616224', price:189.00, author:'Andrew Hunt, David Thomas', type:'Software Engineering', image:'/assets/covers/the-pragmatic-programmer.svg' },
+  { id:'BK-002', title:'Clean Code', isbn:'978-0132350884', price:172.50, author:'Robert C. Martin', type:'Programming', image:'/assets/covers/clean-code.svg' },
+  { id:'BK-003', title:"You Don't Know JS Yet", isbn:'978-1091210094', price:98.00, author:'Kyle Simpson', type:'JavaScript', image:'/assets/covers/you-dont-know-js.svg' },
+  { id:'BK-004', title:'Designing Data-Intensive Applications', isbn:'978-1449373320', price:230.00, author:'Martin Kleppmann', type:'Data', image:'/assets/covers/designing-data-intensive-applications.svg' },
+  { id:'BK-005', title:'Atomic Habits', isbn:'978-0735211292', price:88.90, author:'James Clear', type:'Self-help', image:'/assets/covers/atomic-habits.svg' },
+  { id:'BK-006', title:'Refactoring (2nd Edition)', isbn:'978-0134757599', price:215.00, author:'Martin Fowler', type:'Software Engineering', image:'/assets/covers/refactoring.svg' },
+  { id:'BK-007', title:'Deep Work', isbn:'978-1455586691', price:79.00, author:'Cal Newport', type:'Productivity', image:'/assets/covers/deep-work.svg' },
+  { id:'BK-008', title:'Eloquent JavaScript', isbn:'978-1593279509', price:120.00, author:'Marijn Haverbeke', type:'JavaScript', image:'/assets/covers/eloquent-javascript.svg' }
 ];
 
 export default function Home() {
@@ -53,7 +57,7 @@ export default function Home() {
                 <div className="small">Author: {b.author || b.Author}</div>
                 <div className="small">Type: {b.type || b.Type}</div>
                 <div style={{ marginTop: 8 }}>
-                  <span className="badge-price">RM{(b.price ?? b.Price)}</span>
+                  <span className="badge-price">RM{(b.price ?? b.Price).toFixed ? (b.price ?? b.Price).toFixed(2) : (b.price ?? b.Price)}</span>
                 </div>
                 <div className="toolbar" style={{ marginTop: 10 }}>
                   <Link to={`/books/${encodeURIComponent(b.id || b.BookID)}`} className="btn ghost">View</Link>

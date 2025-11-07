@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="640" height="880" viewBox="0 0 640 880" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="880" fill="#F7DF1E"/>
+  <g transform="translate(40,80)">
+    <text x="0" y="60" font-family="Helvetica, Arial, sans-serif" font-size="54" fill="#222" font-weight="700">You Don't</text>
+    <text x="0" y="120" font-family="Helvetica, Arial, sans-serif" font-size="54" fill="#222" font-weight="700">Know JS</text>
+    <text x="0" y="180" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#333">Kyle Simpson</text>
+  </g>
+</svg>

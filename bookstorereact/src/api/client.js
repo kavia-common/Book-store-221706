@@ -3,13 +3,23 @@
  * Provides local in-memory data for books, auth, and cart.
  */
 
-// Mock catalog based on assets and PHP dataset
+/**
+ * Mock catalog: refreshed dataset (12 items), frontend-only.
+ * Cover images are located under public/assets/covers.
+ */
 const BOOKS = [
-  // Use the exact assets shipped under public/assets to match the screenshot
-  { id:'B-001', title:'Lonely Planet Australia (Travel Guide)', isbn:'123-456-789-1', price:136, author:'Lonely Planet', type:'Travel', image:'/assets/travel.jpg' },
-  { id:'B-002', title:'Crew Resource Management, Second Edition', isbn:'123-456-789-2', price:599, author:'Barbara Kanki', type:'Technical', image:'/assets/technical.jpg' },
-  { id:'B-003', title:'CCNA Routing and Switching 200-125 Official Cert Guide Library', isbn:'123-456-789-3', price:329, author:'Cisco Press', type:'Technology', image:'/assets/technology.jpg' },
-  { id:'B-004', title:'Easy Vegetarian Slow Cooker Cookbook', isbn:'123-456-789-4', price:75.9, author:'Rockridge Press', type:'Food', image:'/assets/food.jpg' },
+  { id:'BK-001', title:'The Pragmatic Programmer', isbn:'978-0201616224', price:189.00, author:'Andrew Hunt, David Thomas', type:'Software Engineering', image:'/assets/covers/the-pragmatic-programmer.svg' },
+  { id:'BK-002', title:'Clean Code', isbn:'978-0132350884', price:172.50, author:'Robert C. Martin', type:'Programming', image:'/assets/covers/clean-code.svg' },
+  { id:'BK-003', title:"You Don't Know JS Yet", isbn:'978-1091210094', price:98.00, author:'Kyle Simpson', type:'JavaScript', image:'/assets/covers/you-dont-know-js.svg' },
+  { id:'BK-004', title:'Designing Data-Intensive Applications', isbn:'978-1449373320', price:230.00, author:'Martin Kleppmann', type:'Data', image:'/assets/covers/designing-data-intensive-applications.svg' },
+  { id:'BK-005', title:'Atomic Habits', isbn:'978-0735211292', price:88.90, author:'James Clear', type:'Self-help', image:'/assets/covers/atomic-habits.svg' },
+  { id:'BK-006', title:'Refactoring (2nd Edition)', isbn:'978-0134757599', price:215.00, author:'Martin Fowler', type:'Software Engineering', image:'/assets/covers/refactoring.svg' },
+  { id:'BK-007', title:'Deep Work', isbn:'978-1455586691', price:79.00, author:'Cal Newport', type:'Productivity', image:'/assets/covers/deep-work.svg' },
+  { id:'BK-008', title:'Eloquent JavaScript', isbn:'978-1593279509', price:120.00, author:'Marijn Haverbeke', type:'JavaScript', image:'/assets/covers/eloquent-javascript.svg' },
+  { id:'BK-009', title:'The Clean Coder', isbn:'978-0137081074', price:165.00, author:'Robert C. Martin', type:'Programming', image:'/assets/covers/clean-code.svg' },
+  { id:'BK-010', title:'Domain-Driven Design', isbn:'978-0321125217', price:240.00, author:'Eric Evans', type:'Architecture', image:'/assets/covers/the-pragmatic-programmer.svg' },
+  { id:'BK-011', title:'Patterns of Enterprise Application Architecture', isbn:'978-0321127426', price:255.00, author:'Martin Fowler', type:'Architecture', image:'/assets/covers/refactoring.svg' },
+  { id:'BK-012', title:'Continuous Delivery', isbn:'978-0321601919', price:210.00, author:'Jez Humble, David Farley', type:'DevOps', image:'/assets/covers/designing-data-intensive-applications.svg' }
 ];
 
 let CURRENT_USER = null;

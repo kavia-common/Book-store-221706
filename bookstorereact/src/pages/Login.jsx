@@ -31,7 +31,7 @@ export default function Login() {
       <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8 }}>
         <span aria-hidden="true" style={{
           display:'inline-block', width:48, height:28,
-          backgroundImage:'url(/assets/php_login.png)',
+          backgroundImage:'url(/assets/php_login.svg)',
           backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'left center',
           marginRight:8
         }}/>

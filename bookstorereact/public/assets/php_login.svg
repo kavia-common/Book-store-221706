@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96" height="56" viewBox="0 0 96 56" xmlns="http://www.w3.org/2000/svg">
+  <rect width="96" height="56" rx="8" ry="8" fill="#0E4168"/>
+  <text x="16" y="36" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#FFFFFF" font-weight="700">Login</text>
+</svg>
