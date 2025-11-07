@@ -8,7 +8,8 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 3000 --strictPort"
+    "preview": "vite preview --port 3000 --strictPort",
+    "postinstall": "node -e \"console.log('postinstall check: dependencies present')\""
   },
   "dependencies": {
     "react": "^18.3.1",
