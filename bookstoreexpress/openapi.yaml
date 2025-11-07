@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Book Store Backend API
+  version: 1.0.0
+  description: |
+    Minimal API for Book Store backend used for health checks and documentation.
+    This API currently exposes a single health check endpoint.
+
+servers:
+  - url: http://localhost:4000
+    description: Local development server
+
+tags:
+  - name: Health
+    description: Service liveness and readiness checks
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: Returns the service health status for monitoring and readiness probes.
+      operationId: getHealth
+      responses:
+        '200':
+          description: Successful health response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the service
+                    example: ok
+              examples:
+                ok:
+                  value:
+                    status: ok
