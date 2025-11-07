@@ -29,13 +29,17 @@ function createApp() {
     res.status(200).json({ status: 'ok' });
   });
 
-  // Load OpenAPI spec from YAML
+  // Load OpenAPI spec from YAML, robustly handling errors/missing file
   const openapiYamlPath = path.join(__dirname, 'openapi.yaml');
 
   let openapiDocument = {};
   try {
-    const yamlContent = fs.readFileSync(openapiYamlPath, 'utf8');
-    openapiDocument = yaml.load(yamlContent);
+    if (fs.existsSync(openapiYamlPath)) {
+      const yamlContent = fs.readFileSync(openapiYamlPath, 'utf8');
+      openapiDocument = yaml.load(yamlContent);
+    } else {
+      throw new Error('openapi.yaml not found');
+    }
   } catch (err) {
     console.error('Failed to load openapi.yaml:', err.message);
     openapiDocument = {
@@ -43,16 +47,28 @@ function createApp() {
       info: {
         title: 'Book Store Backend API',
         version: '1.0.0',
-        description: 'Fallback OpenAPI document if YAML file is missing.'
+        description: 'Fallback OpenAPI document if YAML file is missing or invalid.'
       },
+      servers: [{ url: 'http://localhost:3001', description: 'Local development server' }],
+      tags: [{ name: 'Health', description: 'Service liveness and readiness checks' }],
       paths: {
         '/health': {
           get: {
+            tags: ['Health'],
             summary: 'Health check',
             description: 'Returns ok status.',
+            operationId: 'getHealth',
             responses: {
               '200': {
-                description: 'OK'
+                description: 'Successful health response',
+                content: {
+                  'application/json': {
+                    schema: {
+                      type: 'object',
+                      properties: { status: { type: 'string', example: 'ok' } }
+                    }
+                  }
+                }
               }
             }
           }
