@@ -5,11 +5,17 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   /** Vite configuration for Book Store frontend.
    * - Uses React plugin
-   * - No hardcoded port; respects environment or defaults.
+   * - Binds to 0.0.0.0 on port 3000 for dev server readiness.
    */
   plugins: [react()],
   server: {
-    // Let platform define the port; Vite defaults to 5173 if not specified.
-    strictPort: false
+    host: "0.0.0.0",
+    port: 3000,
+    strictPort: true
+  },
+  preview: {
+    host: "0.0.0.0",
+    port: 3000,
+    strictPort: true
   }
 });
