@@ -1,12 +1,13 @@
 #!/bin/sh
 # Minimal, POSIX-safe entrypoint for php:apache-based image.
+# Note: This script uses /bin/sh (POSIX), not bash, to ensure portability in official PHP images.
 # Requirements:
 # - LF line endings (no CRLF)
 # - Executable bit set
 # - No BOM at file start
 # - Ends with a trailing newline
 
-# Fail fast
+# Fail fast (treat unset vars as error, exit on error)
 set -eu
 
 # If the script has CRLF line endings, normalize them in-memory before proceeding.
@@ -41,3 +42,4 @@ fi
 
 # Hand off to Apache (PID 1)
 exec apache2-foreground
+

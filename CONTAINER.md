@@ -13,4 +13,4 @@ Then open:
 
 Notes:
 - The image enables mysqli and pdo_mysql extensions used by the PHP code.
-- The entrypoint is a minimal Bash script with correct shebang and uses apache2-foreground.
+- The entrypoint is a minimal POSIX sh script (#!/bin/sh) with correct shebang and uses apache2-foreground.
