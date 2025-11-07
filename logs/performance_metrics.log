@@ -936,3 +936,58 @@
 2025-11-07 09:46:26,401 - Knowledge - INFO - ⚡ Total Redis path: 2.38s (vs ~300s from disk)
 2025-11-07 09:46:26,615 - Knowledge - INFO - Saving knowledge to Redis...
 2025-11-07 09:46:26,786 - Knowledge - INFO - Knowledge saved to Redis successfully
+2025-11-07 09:50:18,765 - Knowledge - INFO - Created shared MongoDB connection pool
+2025-11-07 09:50:19,112 - Knowledge - INFO - Starting Knowledge Graph processing with 50 threads
+2025-11-07 09:50:19,263 - Knowledge - INFO - Initial configuration: chunk_size=65536, max_cache_size=500
+2025-11-07 09:50:20,470 - Knowledge - INFO - 🔍 _load_persisted_knowledge called - checking for Redis optimization
+2025-11-07 09:50:20,646 - Knowledge - WARNING - ❌ load_from_redis method not found - Redis support not attached
+2025-11-07 09:50:20,833 - Knowledge - INFO - load persisted knowledge: begin
+2025-11-07 09:50:21,031 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:21,196 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:21,352 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/checklogin.php
+2025-11-07 09:50:21,543 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:21,691 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:21,855 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/edituser.php
+2025-11-07 09:50:22,010 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:22,226 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:22,371 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/register.php
+2025-11-07 09:50:22,514 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:22,671 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:22,868 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/database.sql
+2025-11-07 09:50:23,051 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:23,288 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:23,437 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/login.php
+2025-11-07 09:50:23,609 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:23,773 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:23,961 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/index.php
+2025-11-07 09:50:24,112 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:24,317 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:24,494 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/README.md
+2025-11-07 09:50:24,658 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:24,823 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:25,035 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/connectDB.php
+2025-11-07 09:50:25,190 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:25,357 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:25,546 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/checkout.php
+2025-11-07 09:50:25,725 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:25,910 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:26,054 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/logout.php
+2025-11-07 09:50:26,220 - Knowledge - INFO - Found code-base-name: https://github.com/kavia-common/Book-store-221706.git:kavia-master
+2025-11-07 09:50:26,450 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7f2eaef5edd0>
+2025-11-07 09:50:26,590 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/221804/b8833x2/Book-store-221706/bookstore/style.css
+2025-11-07 09:50:26,761 - Knowledge - INFO - Loaded 11 files from persisted knowledge
+2025-11-07 09:50:26,911 - Knowledge - INFO - load persisted knowledge: end
+2025-11-07 09:50:27,086 - Knowledge - INFO - Redis support added with prefix knowledge:b8833x2:
+2025-11-07 09:50:27,321 - Knowledge - INFO - Starting knowledge initialization for ID: ZPAFcg-b8833x2
+2025-11-07 09:50:27,466 - Knowledge - INFO - 🔍 Checking Redis for build_id: b8833x2
+2025-11-07 09:50:27,622 - Knowledge - INFO - 🔍 Full session ID: ZPAFcg-b8833x2
+2025-11-07 09:50:27,794 - Knowledge - INFO - 🔍 Redis prefix will be: knowledge:b8833x2:
+2025-11-07 09:50:27,969 - Knowledge - INFO - 🔍 Using attached load_from_redis() method
+2025-11-07 09:50:28,201 - Knowledge - INFO - 🔍 Attempting to load knowledge from Redis...
+2025-11-07 09:50:28,404 - Knowledge - INFO - 🔍 Using derived instance_id for Redis lookup: b8833x2
+2025-11-07 09:50:30,516 - Knowledge - INFO - ✅ Redis cache found! Loading knowledge...
+2025-11-07 09:50:30,718 - Knowledge - INFO - ✅ Successfully loaded from Redis: 11 files
+2025-11-07 09:50:30,867 - Knowledge - INFO - ✅ Redis load complete: 11 files in 2.90s
+2025-11-07 09:50:31,066 - Knowledge - INFO - ⚡ Total Redis path: 2.90s (vs ~300s from disk)
+2025-11-07 09:50:31,270 - Knowledge - INFO - Saving knowledge to Redis...
+2025-11-07 09:50:31,459 - Knowledge - INFO - Knowledge saved to Redis successfully
