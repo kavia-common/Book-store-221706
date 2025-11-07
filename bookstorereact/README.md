@@ -5,15 +5,22 @@ Minimal React 18 + Vite scaffold to support the preview system.
 ## Prerequisites
 - Node.js v18+ recommended
 
-## Available Scripts
+## Quick Start
+1) Install dependencies:
+   npm install
 
-- `npm install` – install dependencies
-- `npm run start` – start the dev server (alias for `vite`)
-- `npm run dev` – start the dev server
-- `npm run build` – build for production
-- `npm run preview` – preview the production build locally
+2) Start the development server (binds to 0.0.0.0:3000):
+   npm start
 
-The dev server chooses the port dynamically (defaults to 3000 if free). The preview script runs on port 3000 with `--strictPort` to work well with the platform's port mapping. If the environment exports `PORT`, the dev server will respect it.
+3) Build for production:
+   npm run build
+
+4) Preview the production build on 0.0.0.0:3000:
+   npm run preview
+
+Notes:
+- The dev and preview servers are configured to bind to host 0.0.0.0 and port 3000 to align with the preview platform's readiness checks.
+- If 3000 is occupied locally, change the port in `vite.config.js` and the scripts in `package.json` to match your environment.
 
 ## Verifying the App
 When you run the app, you should see a header:

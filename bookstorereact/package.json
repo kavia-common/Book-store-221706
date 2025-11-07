@@ -5,18 +5,17 @@
   "description": "Book Store Frontend - minimal React app scaffold for preview",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "vite --host --port 3000",
     "build": "vite build",
-    "preview": "vite preview --host --port 3001"
+    "preview": "vite preview --host --port 3000"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.8",
+    "@vitejs/plugin-react": "^4.3.1"
   },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.8"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0"
   }
