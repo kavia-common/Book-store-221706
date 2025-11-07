@@ -1,3 +1,20 @@
+/**
+ * Express application setup with CORS, Swagger UI, and routes.
+ * Ensures environment variables are loaded early using dotenv.
+ */
+try {
+  // Load env as early as possible; missing .env is non-fatal
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+} catch (e) {
+  // Swallow errors except module not found which indicates install issue
+  if (e && e.code === 'MODULE_NOT_FOUND') {
+    // eslint-disable-next-line no-console
+    console.error('dotenv module not found. Please ensure it is installed as a dependency.');
+    throw e;
+  }
+}
+
 const cors = require('cors');
 const express = require('express');
 const routes = require('./routes');
@@ -7,6 +24,7 @@ const swaggerSpec = require('../swagger');
 // Initialize express app
 const app = express();
 
+// Apply CORS with permissive defaults
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
