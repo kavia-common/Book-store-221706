@@ -1,10 +1,11 @@
-#!/usr/bin/env sh
+#!/bin/sh
 # Minimal, POSIX-safe entrypoint for php:apache-based image.
 # Requirements:
 # - LF line endings
 # - Executable bit set
 # - No BOM at file start
 # - Ends with a trailing newline
+# - Avoid bashisms; this script must run with /bin/sh
 
 # Fail fast; treat unset vars as errors
 set -eu
@@ -18,7 +19,7 @@ if [ ! -d "${DOC_ROOT}" ]; then
   mkdir -p "${DOC_ROOT}"
 fi
 
-# Non-fatal permission adjustment
+# Non-fatal permission adjustment (ignore errors if running rootless)
 if command -v chown >/dev/null 2>&1; then
   chown -R www-data:www-data "${DOC_ROOT}" || true
 fi
@@ -32,6 +33,9 @@ if ! command -v apache2-foreground >/dev/null 2>&1; then
   echo "[entrypoint] Error: apache2-foreground command not found in PATH." >&2
   exit 127
 fi
+
+# Lightweight self-check to catch unexpected EOF issues early
+echo "[entrypoint] Entrypoint script loaded successfully."
 
 # Exec Apache in foreground (PID 1 handoff)
 exec apache2-foreground
