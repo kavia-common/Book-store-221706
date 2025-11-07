@@ -1,8 +1,10 @@
 import React from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { getTheme } from './theme';
+import Layout from './components/Layout.jsx';
+import { Button } from './components/UI.jsx';
 
-// Route components (placeholders)
+// Route components
 import Home from './pages/Home.jsx';
 import Catalog from './pages/Catalog.jsx';
 import Cart from './pages/Cart.jsx';
@@ -11,53 +13,34 @@ import Orders from './pages/Orders.jsx';
 
 // PUBLIC_INTERFACE
 export default function App() {
-  /** Root application layout with header, sidebar nav, and content routes. */
-  const { colors } = getTheme();
+  /** Root application wrapped in shared Layout to mirror PHP styling. */
+  getTheme(); // theme consumed by css vars
 
-  return (
-    <div className="app-shell" style={{ background: colors.background }}>
-      <header className="app-header" role="banner">
-        <div className="brand" aria-label="App Brand">
-          <span className="dot" aria-hidden="true"></span>
-          <span>Book Store</span>
-        </div>
-        <div className="badge">React Scaffold</div>
-      </header>
+  // In a future task this will be driven by auth state.
+  const isLoggedIn = false;
 
-      <nav className="sidebar" aria-label="Primary">
-        <NavItem to="/" label="Home" end />
-        <NavItem to="/catalog" label="Catalog" />
-        <NavItem to="/cart" label="Cart" />
-        <NavItem to="/profile" label="Profile" />
-        <NavItem to="/orders" label="Orders" />
-      </nav>
-
-      <main className="content" role="main">
-        <div className="card">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/catalog" element={<Catalog />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/orders" element={<Orders />} />
-            {/* Fallback */}
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </div>
-      </main>
-    </div>
+  const rightActions = isLoggedIn ? (
+    <>
+      <Button className="hi" onClick={() => alert('Edit Profile (stub)')}>Edit Profile</Button>
+      <Button className="hi" onClick={() => alert('Logout (stub)')}>Logout</Button>
+    </>
+  ) : (
+    <>
+      <Button className="hi" onClick={() => alert('Register (stub)')}>Register</Button>
+      <Button className="hi" onClick={() => alert('Login (stub)')}>Login</Button>
+    </>
   );
-}
 
-function NavItem({ to, label, end }) {
   return (
-    <NavLink
-      to={to}
-      end={end}
-      className={({ isActive }) => (isActive ? 'active' : undefined)}
-      aria-label={label}
-    >
-      {label}
-    </NavLink>
+    <Layout rightActions={rightActions}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </Layout>
   );
 }
