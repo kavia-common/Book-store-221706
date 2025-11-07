@@ -13,14 +13,15 @@ export default function Layout({ children }) {
       <header className="header">
         <div className="row">
           <div className="brand">
-            <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
-              {/* Simple logo mark to mimic PHP header logo spacing */}
-              <span style={{
+            <Link to="/" style={{ color: '#fff', textDecoration: 'none', display:'inline-flex', alignItems:'center', gap:8 }}>
+              <span aria-hidden="true" style={{
                 display:'inline-block',
-                width:28, height:28, borderRadius:'50%',
-                background:'rgba(255,255,255,0.2)',
-                verticalAlign:'middle', marginRight:8
-              }}/>
+                width:36, height:24,
+                backgroundImage:'url(/assets/home.png)',
+                backgroundSize:'contain',
+                backgroundRepeat:'no-repeat',
+                backgroundPosition:'left center'
+              }} />
               <span>Book Store</span>
             </Link>
           </div>

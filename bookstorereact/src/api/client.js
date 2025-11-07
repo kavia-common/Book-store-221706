@@ -5,6 +5,7 @@
 
 // Mock catalog based on assets and PHP dataset
 const BOOKS = [
+  // Use the exact assets shipped under public/assets to match the screenshot
   { id:'B-001', title:'Lonely Planet Australia (Travel Guide)', isbn:'123-456-789-1', price:136, author:'Lonely Planet', type:'Travel', image:'/assets/travel.jpg' },
   { id:'B-002', title:'Crew Resource Management, Second Edition', isbn:'123-456-789-2', price:599, author:'Barbara Kanki', type:'Technical', image:'/assets/technical.jpg' },
   { id:'B-003', title:'CCNA Routing and Switching 200-125 Official Cert Guide Library', isbn:'123-456-789-3', price:329, author:'Cisco Press', type:'Technology', image:'/assets/technology.jpg' },

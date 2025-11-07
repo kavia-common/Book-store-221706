@@ -45,7 +45,7 @@ export default function Home() {
           <div className="product-grid grid">
             {books.map((b) => (
               <article className="card product" key={b.id || b.BookID}>
-                <div style={{ height: 180, background: '#eef3f8', borderRadius: 6, marginBottom: 8, display: 'flex', alignItems:'center', justifyContent:'center', color:'#668' }}>
+                <div style={{ height: 180, background: '#f2f5f8', borderRadius: 6, marginBottom: 8, display: 'flex', alignItems:'center', justifyContent:'center', color:'#668' }}>
                   {b.image ? <img src={b.image} alt={b.title || b.BookTitle} style={{ maxHeight: 160, maxWidth: '100%' }} /> : <span>No Image</span>}
                 </div>
                 <div style={{ fontWeight: 600, marginBottom: 6 }}>{b.title || b.BookTitle}</div>

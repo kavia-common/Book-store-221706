@@ -34,6 +34,15 @@ export default function Signup() {
 
   return (
     <div className="form-panel" role="region" aria-label="Signup panel">
+      <div aria-hidden="true" style={{height:8}} />
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8 }}>
+        <span aria-hidden="true" style={{
+          display:'inline-block', width:48, height:28,
+          backgroundImage:'url(/assets/php_login.png)',
+          backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'left center',
+          marginRight:8
+        }}/>
+      </div>
       <h1 style={{ fontSize: 24, fontWeight: 600, margin: '0 0 16px 0' }}>Create account</h1>
       {!!error && <div className="small" style={{ color: '#C62828', marginBottom: 12 }}>{error}</div>}
       <form onSubmit={onSubmit} noValidate>
