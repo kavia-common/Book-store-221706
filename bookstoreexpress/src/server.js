@@ -28,7 +28,7 @@ function startServer() {
 
   const server = app
     .listen(PORT, HOST, () => {
-      console.log(`Server running at http://${HOST}:${PORT}`);
+      console.log(`[startup] Express server is listening on http://${HOST}:${PORT} (NODE_ENV=${process.env.NODE_ENV || 'development'})`);
     })
     .on('error', (err) => {
       console.error('Failed to start HTTP server:', err.message);
