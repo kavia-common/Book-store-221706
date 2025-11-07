@@ -21,15 +21,17 @@ header .hi{
     border: none;
     border-radius: 20px;
     text-align: center;
-    transition-duration: 0.5s; 
+    transition-duration: 0.2s ease; 
     padding: 8px 30px;
     cursor: pointer;
     color: #000;
     font-weight: bold;
     margin-top: 15%;
 }
-header .hi:hover{
+header .hi:hover,
+header .hi:focus{
     background-color: #ccc;
+    outline: none;
 }
 
 /* Table and card-like elements per PHP */
@@ -48,7 +50,7 @@ table .btn{
     background-color: #ec7115;
     border: none;
     text-align: center;
-    transition-duration: 0.5s; 
+    transition-duration: 0.2s ease; 
     padding: 8px 30px;
     cursor: pointer;
     color: #fff;
@@ -65,16 +67,21 @@ table .btn:hover{
     border: none;
     border-radius: 20px;
     text-align: center;
-    transition-duration: 0.5s; 
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease; 
     padding: 8px 30px;
     cursor: pointer;
     color: #fff;
     margin-top: 5%;
     font-weight: bold;
 }
-.button:hover {
+.button:hover,
+.button:focus {
     background-color: rgb(102,255,255);
     color: #000;
+    outline: none;
+}
+.button:active {
+    transform: translateY(1px);
 }
 
 /* Cart header button */
@@ -83,14 +90,16 @@ table .btn:hover{
     border: none;
     border-radius: 20px;
     text-align: center;
-    transition-duration: 0.5s; 
+    transition: background-color 0.2s ease; 
     padding: 8px 30px;
     cursor: pointer;
     color: #000;
     font-weight: bold;
 }
-.cbtn:hover{
+.cbtn:hover,
+.cbtn:focus{
     background-color: #ccc;
+    outline: none;
 }
 
 /* Forms to match PHP look */
@@ -103,7 +112,7 @@ input[type=text], input[type=password]{
     border-radius: 3px;
     box-sizing: border-box;
     border: 2px solid #ccc;
-    transition: 0.5s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     outline: none;
 }
 input[type=text]:focus, input[type=password]:focus {
@@ -130,6 +139,8 @@ textarea:focus {
 .php-form-title{
     text-align:center;
 }
+
+/* Grid and sidebar dimensions to match PHP index.php */
 .php-grid{
     width:80%;
     float:left;
@@ -142,6 +153,113 @@ textarea:focus {
     border-radius:4px;
     padding:8px;
 }
+.php-sidebar-total{
+    text-align:right;
+    background-color:#f2f2f2;
+}
+
+/* Card cell and card block to mimic PHP table cards */
+.php-cardcell{
+    vertical-align: top;
+    padding: 8px;              /* matches PHP td inline style padding:5–8px */
+    width: 25%;                /* 4 across within 80% grid area */
+    box-sizing: border-box;
+}
+.php-card{
+    background:#fff;
+    border:1px solid #ccc;
+    border-radius:4px;
+    padding: 8px;              /* internal spacing consistent with PHP table rows */
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.php-card:hover,
+.php-card:focus-within{
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transform: translateY(-1px);
+}
+.php-card--loading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height: 280px;
+}
+
+/* Media: fixed aspect ratio 3:4 and contain image similar to PHP "width=80%" */
+.php-media{
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: #f2f2f2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border-radius: 2px;
+}
+.php-media img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Metadata typography to match PHP */
+.php-meta{
+    margin-top: 6px;
+}
+.php-row{
+    margin: 4px 0;
+    line-height: 18px;           /* Body-2 line-height */
+    font-size: 13px;             /* Body-2 size */
+}
+.php-label{
+    font-weight: 600;            /* label emphasis like "Title:" */
+    color: #333;
+    margin-right: 4px;
+}
+.php-value{
+    color: #222;
+}
+.php-title{
+    font-size: 14px;             /* Title slightly larger */
+    line-height: 20px;
+    font-weight: 600;
+}
+
+/* Price / CTA zone aligned consistently */
+.php-cta{
+    margin-top: 8px;
+}
+.php-price-badge{
+    display: inline-block;
+    background: #F0F6FB;         /* light pill like style guide */
+    color: rgb(0,51,102);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+.php-qty{
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 18px;
+}
+.php-qty-input{
+    width: 20%;
+    min-width: 56px;
+    padding: 4px 6px;
+    border-radius: 3px;
+    border: 2px solid #ccc;
+    outline: none;
+}
+.php-qty-input:focus{
+    border-color: rgb(0,51,102);
+}
+.php-add{
+    display: inline-block;
+    margin-top: 8px;
+}
+
+/* Price style utility */
 .php-price{
     font-weight:bold;
     color: rgb(0,51,102);
