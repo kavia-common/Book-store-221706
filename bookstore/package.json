@@ -1,0 +1,17 @@
+{
+  "name": "bookstore-backend-preview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lightweight Node/Express dev server wrapper to preview the Book Store PHP app without requiring a host PHP binary.",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

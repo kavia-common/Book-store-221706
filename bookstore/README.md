@@ -1,7 +1,24 @@
 # Book Store PHP Backend (Containerized)
 
-This directory contains a minimal PHP application for the Book Store backend.  
-To ensure the app can run in environments without a system-level PHP binary, a Dockerfile is provided that uses the official PHP image and runs the built-in PHP server.
+This directory contains a minimal PHP application for the Book Store backend.
+
+## Quick Start (Preview without host PHP)
+
+Some preview platforms do not expose a system-level `php` binary.  
+Use the included Node-based dev server to serve the backend for preview:
+
+1) Install Node dependencies (from this `bookstore/` directory):
+   npm install
+
+2) Start the preview server on 0.0.0.0:3001:
+   npm start
+
+Behavior:
+- If `php-cgi` is available in the environment, `.php` files are executed dynamically.
+- If `php-cgi` is not available, `.php` files are served as plain HTML (fallback) so you still get a working preview.
+- Static assets (images/css/js) are served as-is.
+
+This is intended for preview/dev only. For production, use a real PHP runtime.
 
 ## Quick Start (Docker)
 
@@ -36,8 +53,8 @@ No environment variables are hard-coded in the container; you can adapt the PHP 
 
 ## Preview System Compatibility
 
-- The Dockerfile allows platforms that auto-detect Dockerfiles to build and run the backend without requiring a system-level `php` binary.
-- The PHP built-in server serves this folder as the document root (`-t .`) on port `3001`.
+- The Node dev server enables startup on platforms where `php` is not available.
+- The Dockerfile allows platforms that auto-detect Dockerfiles to build and run the backend with a real PHP runtime.
 
 ## Frontend
 
@@ -45,9 +62,9 @@ A separate React frontend scaffold lives in `../bookstorereact`. It is independe
 
 ## Troubleshooting
 
-- Port already in use: Ensure nothing else is bound to 3001 or change the published host port: `-p 8080:3001`.
-- MySQL connection refused: Verify database is reachable from inside the container and credentials are correct.
-- Static assets: Images/css in `image/` and `style.css` are served by the built-in server automatically.
+- Port already in use: Ensure nothing else is bound to 3001 or change the published host port.
+- MySQL connection refused: Verify database is reachable from inside the environment and credentials are correct.
+- Static assets: Images/css in `image/` and `style.css` are served by the dev server automatically.
 
 ## License
 
