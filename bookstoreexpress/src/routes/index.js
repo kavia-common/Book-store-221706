@@ -47,4 +47,20 @@ router.get('/', healthController.check.bind(healthController));
  */
 router.get('/health', healthController.check.bind(healthController));
 
+// PUBLIC_INTERFACE
+router.get('/ready', (req, res) => {
+  /** Basic readiness probe that always returns 200 with health payload. */
+  try {
+    return healthController.check(req, res);
+  } catch (e) {
+    // If healthController throws, still indicate the server is up.
+    return res.status(200).json({
+      status: 'ok',
+      message: 'Service is up',
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+    });
+  }
+});
+
 module.exports = router;
