@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       ...defineEnv,
     },
     server: {
+      // Bind to all interfaces if preview infra requires 0.0.0.0
       host: true,
       port: 3000,
       strictPort: true,
