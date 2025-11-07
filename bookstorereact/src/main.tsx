@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -12,11 +12,24 @@ function bootstrap(): void {
     throw new Error('Root container #root not found');
   }
   const root = createRoot(container);
-  root.render(
-    <React.StrictMode>
+
+  // Log a simple status message once after mount
+  function StartupLogger() {
+    useEffect(() => {
+      const port = (import.meta as any).env?.VITE_PORT || 3000;
+      // eslint-disable-next-line no-console
+      console.log(`Frontend started and mounted. Vite server expected on port ${port}`);
+    }, []);
+    return (
       <BrowserRouter>
         <App />
       </BrowserRouter>
+    );
+  }
+
+  root.render(
+    <React.StrictMode>
+      <StartupLogger />
     </React.StrictMode>
   );
 }

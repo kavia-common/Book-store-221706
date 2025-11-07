@@ -5,6 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   /** Vite configuration for the Book Store React frontend. */
   const env = loadEnv(mode, process.cwd(), '');
+
   // Map REACT_APP_* env vars to import.meta.env for client use
   const defineEnv: Record<string, string> = {};
   Object.keys(env).forEach((key) => {
@@ -12,6 +13,9 @@ export default defineConfig(({ mode }) => {
       defineEnv[`import.meta.env.${key}`] = JSON.stringify(env[key]);
     }
   });
+
+  // Read VITE_PORT from env; default to 3000
+  const vitePort = Number(env.VITE_PORT || 3000);
 
   return {
     plugins: [react()],
@@ -21,12 +25,12 @@ export default defineConfig(({ mode }) => {
     server: {
       // Bind to all interfaces (0.0.0.0)
       host: true,
-      port: 3000,
+      port: vitePort,
       strictPort: true,
     },
     preview: {
       host: true,
-      port: 3000,
+      port: vitePort,
       strictPort: true,
     },
   };
