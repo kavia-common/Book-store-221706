@@ -1,10 +1,12 @@
-#!/usr/bin/env bash
-# A minimal, robust entrypoint script for the PHP-Apache container.
-# Notes:
-# - Must be LF line endings and executable permissions.
-# - Avoid stray quotes or heredocs.
+#!/bin/sh
+# Minimal, safe entrypoint for php:apache-based image.
+# Requirements:
+# - LF line endings
+# - Executable bit set
+# - No BOM at file start
+# - Ends with a trailing newline
 
-set -euo pipefail
+set -e
 
 # Ensure document root exists
 DOC_ROOT="${APACHE_DOCUMENT_ROOT:-/var/www/html}"
@@ -13,19 +15,19 @@ if [ ! -d "$DOC_ROOT" ]; then
   mkdir -p "${DOC_ROOT}"
 fi
 
-# Adjust permissions for Apache if needed (non-fatal)
+# Non-fatal permission adjustment
 if command -v chown >/dev/null 2>&1; then
   chown -R www-data:www-data "${DOC_ROOT}" || true
 fi
 
-# Print a brief startup message
-echo "Starting Apache HTTPD with document root: ${DOC_ROOT}"
+# Confirm startup
+echo "[entrypoint] Starting Apache HTTPD with document root: ${DOC_ROOT}"
 
-# Sanity check: required apache command exists
+# Validate apache2-foreground availability (provided by php:apache)
 if ! command -v apache2-foreground >/dev/null 2>&1; then
-  echo "Error: apache2-foreground command not found in PATH." >&2
+  echo "[entrypoint] Error: apache2-foreground command not found in PATH." >&2
   exit 127
 fi
 
-# Exec the Apache foreground process
+# Exec Apache in foreground (PID 1 handoff)
 exec apache2-foreground

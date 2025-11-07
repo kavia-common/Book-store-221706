@@ -18,5 +18,5 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 # Apache runs on port 80 by default
 EXPOSE 80
 
-# Use our entrypoint which starts Apache in the foreground
+# Use exec-form ENTRYPOINT for PID 1 signal handling
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
