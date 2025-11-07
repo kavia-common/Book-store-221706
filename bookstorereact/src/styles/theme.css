@@ -1,0 +1,13 @@
+:root {
+  /* Theme (from backend container details) */
+  --primary: #003366;
+  --secondary: #ec7115;
+  --background: #f2f2f2;
+  --accent: #ffffff;
+
+  /* Derived */
+  --on-primary: #ffffff;
+  --on-secondary: #ffffff;
+  --text: #0f172a;
+  --muted: #5b6777;
+}
