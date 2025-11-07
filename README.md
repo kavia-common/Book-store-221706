@@ -1,16 +1,18 @@
-# PHP Basic BookStore Website (For Study Purpose Only)
-This BookStore Website is using PHP and Database(MySQL). In this website you can Register and Edit Profile.
-And also all the book data will store at the database for easy to add, edit and delete.
+# Book-store-221706 Workspace
 
-## Home Page & Edit Profile Page:
-![HomePage](/homepage.PNG)
-![EditProfile](/editprofile.PNG)
+This repository contains:
+- A legacy PHP bookstore app (folder: `bookstore`), and
+- A standalone React frontend (folder: `bookstorereact`)
 
-## DataBase:
-![Database](/db.PNG)
+Important change:
+- The Express backend container (book-store-backend) has been removed from this workspace. The `bookstoreexpress` folder and related container configuration were deleted. The React app runs fully standalone using an in-memory mock API and does not require any backend service, proxy, or API base URL.
 
-## How to run:
-Download [bookstore](https://github.com/weixiong15/PHP_Basic_BookStore_Website/tree/master/bookstore) folder and upload these file to your server or you can download an application called
-[XAMPP](https://www.apachefriends.org/index.html) or other. After, you need to import [database.sql](https://github.com/weixiong15/PHP_Basic_BookStore_Website/blob/master/bookstore/database.sql) to your server/XAMPP 
-first.
- 
+How to run the React frontend:
+1) cd Book-store-221706/bookstorereact
+2) npm install
+3) npm start
+Then open http://localhost:3000
+
+Notes:
+- The React app has no dependency on a backend. Any previous variables like REACT_APP_API_BASE or proxies are not used.
+- The legacy PHP app (folder `bookstore`) remains unchanged and can be run separately via the provided Dockerfile if needed, but it is not connected to the React app.

@@ -12,6 +12,6 @@ Routes:
 - /login   Login form panel matching the screenshot
 
 Notes:
-- No Express/backend is used. Any previous references have been removed.
+- Backend removed: The Express backend container and any proxy/API base URL usage have been removed. Do not set REACT_APP_API_BASE or proxy; they are not used.
 - Images for book covers are included under public/assets.
 - CSS tokens load first, followed by global styles to ensure design fidelity.
