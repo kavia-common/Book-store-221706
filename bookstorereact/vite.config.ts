@@ -24,7 +24,7 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       // Bind to all interfaces (0.0.0.0)
-      host: true,
+      host: true, // host: true means 0.0.0.0
       port: vitePort,
       strictPort: true,
     },
