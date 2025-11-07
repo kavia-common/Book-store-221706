@@ -1,0 +1,31 @@
+# Node artifacts from sibling frontend (if mistakenly copied)
+node_modules
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# Archives
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Logs and runtime files
+*.log
+
+# Container build cache or temp
+tmp
+.cache
