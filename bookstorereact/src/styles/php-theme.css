@@ -157,6 +157,18 @@ blockquote {
   padding: 16px;
 }
 
+[aria-label="Breadcrumb"] {
+  font-size: 0.9rem;
+  color: #333;
+}
+[aria-label="Breadcrumb"] a {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+[aria-label="Breadcrumb"] a:hover {
+  text-decoration: underline;
+}
+
 .card {
   background: var(--color-accent);
   border: 1px solid rgba(0,0,0,0.06);

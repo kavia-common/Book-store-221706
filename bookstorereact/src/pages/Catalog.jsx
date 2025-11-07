@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/UI.jsx';
 import '../styles/php-theme.css';
 
@@ -14,6 +15,7 @@ export default function Catalog() {
   /** Catalog grid and cart summary, visually mirroring PHP index.php layout. */
   const books = useMemo(() => seedBooks, []);
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
 
   function addToCart(book, qty) {
     const q = Math.max(1, parseInt(qty || '1', 10));
@@ -41,8 +43,14 @@ export default function Catalog() {
                 <td key={b.BookID} style={{ verticalAlign: 'top' }}>
                   <table style={{ width: '100%' }}>
                     <tbody>
-                      <tr><td><img src={b.Image} alt={b.BookTitle} style={{ width: '80%' }} /></td></tr>
-                      <tr><td style={{ padding: 5 }}>Title: {b.BookTitle}</td></tr>
+                      <tr>
+                        <td>
+                          <Link to={`/catalog/${b.BookID}`}>
+                            <img src={b.Image} alt={b.BookTitle} style={{ width: '80%' }} />
+                          </Link>
+                        </td>
+                      </tr>
+                      <tr><td style={{ padding: 5 }}>Title: <Link to={`/catalog/${b.BookID}`}>{b.BookTitle}</Link></td></tr>
                       <tr><td style={{ padding: 5 }}>ISBN: {b.ISBN}</td></tr>
                       <tr><td style={{ padding: 5 }}>Author: {b.Author}</td></tr>
                       <tr><td style={{ padding: 5 }}>Type: {b.Type}</td></tr>
@@ -91,7 +99,7 @@ export default function Catalog() {
               <td style={{ textAlign: 'right', backgroundColor: '#f2f2f2' }}>
                 Total: <b>RM{total.toFixed(2)}</b>
                 <center style={{ marginTop: 8 }}>
-                  <Button className="button" onClick={() => alert('Checkout (stub)')}>CHECKOUT</Button>
+                  <Button className="button" onClick={() => navigate('/checkout')}>CHECKOUT</Button>
                 </center>
               </td>
             </tr>
