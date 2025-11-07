@@ -5,20 +5,15 @@
  * - Adds graceful shutdown and basic error handlers
  */
 
-/**
- * Attempt to load environment variables from .env as early as possible.
- * Do not swallow MODULE_NOT_FOUND errors for dotenv itself; only ignore missing .env file cases.
- */
+// Load environment variables as early as possible
 try {
   // eslint-disable-next-line global-require
   require('dotenv').config();
 } catch (e) {
   if (e && e.code === 'MODULE_NOT_FOUND') {
-    // Dotenv package missing: surface the error to prevent silent misconfiguration
     console.error('dotenv module not found. Please ensure it is installed as a dependency.');
     throw e;
   } else {
-    // Other errors (e.g., parsing issues) should be logged but not crash the app
     console.error('dotenv load error', e);
   }
 }
@@ -29,7 +24,7 @@ const app = require('./app');
 function startServer() {
   /** Starts the HTTP server and returns the server instance. */
   const PORT = Number(process.env.PORT) || 3001;
-  const HOST = process.env.HOST || '0.0.0.0';
+  const HOST = '0.0.0.0'; // Explicitly bind to all interfaces
 
   const server = app
     .listen(PORT, HOST, () => {
@@ -37,7 +32,6 @@ function startServer() {
     })
     .on('error', (err) => {
       console.error('Failed to start HTTP server:', err.message);
-      // Common cases: EADDRINUSE, EACCES
       process.exitCode = 1;
     });
 

@@ -2,7 +2,7 @@ const express = require('express');
 const healthController = require('../controllers/health');
 
 const router = express.Router();
-// Health endpoints
+// Health endpoints (readiness/liveness)
 
 /**
  * @swagger
@@ -33,6 +33,9 @@ const router = express.Router();
 router.get('/', healthController.check.bind(healthController));
 
 /**
+ * Lightweight readiness probe endpoint
+ * Returns 200 OK with health JSON for port/health checks.
+ *
  * @swagger
  * /health:
  *   get:
