@@ -6,7 +6,7 @@ export default function Home(): JSX.Element {
   /** Health check landing page with links to placeholder routes. */
   return (
     <section>
-      <h1>Book Store React Migration - Health Check</h1>
+      <h1>Health: OK</h1>
       <p>If you can see this page, the React frontend is running.</p>
       <ul>
         <li><Link to="/login">Go to Login</Link></li>
