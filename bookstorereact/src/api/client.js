@@ -1,78 +1,116 @@
 /**
- * Simple fetch wrapper that injects base URL and sends credentials (cookies)
- * Base URL is read from REACT_APP_API_BASE_URL with fallback to http://localhost:3001
+ * Standalone frontend mock API (no backend required).
+ * Provides local in-memory data for books, auth, and cart.
  */
-const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
 
-// PUBLIC_INTERFACE
-export async function apiFetch(path, options = {}) {
-  /** Perform a fetch request against the backend API, sending credentials. */
-  const url = `${API_BASE}${path}`;
-  const opts = {
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
-    ...options,
-  };
-  const res = await fetch(url, opts);
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`Request failed ${res.status}: ${text || res.statusText}`);
-  }
-  const contentType = res.headers.get('content-type') || '';
-  if (contentType.includes('application/json')) {
-    return res.json();
-  }
-  return res.text();
-}
+// Mock catalog based on assets and PHP dataset
+const BOOKS = [
+  { id:'B-001', title:'Lonely Planet Australia (Travel Guide)', isbn:'123-456-789-1', price:136, author:'Lonely Planet', type:'Travel', image:'/assets/travel.jpg' },
+  { id:'B-002', title:'Crew Resource Management, Second Edition', isbn:'123-456-789-2', price:599, author:'Barbara Kanki', type:'Technical', image:'/assets/technical.jpg' },
+  { id:'B-003', title:'CCNA Routing and Switching 200-125 Official Cert Guide Library', isbn:'123-456-789-3', price:329, author:'Cisco Press', type:'Technology', image:'/assets/technology.jpg' },
+  { id:'B-004', title:'Easy Vegetarian Slow Cooker Cookbook', isbn:'123-456-789-4', price:75.9, author:'Rockridge Press', type:'Food', image:'/assets/food.jpg' },
+];
+
+let CURRENT_USER = null;
+let CART = []; // {id, bookId, title, price, quantity, image}
+
+function delay(ms=120){ return new Promise(r=>setTimeout(r, ms)); }
+function ensureItemId(){ return Math.random().toString(36).slice(2,10); }
+function findBook(id){ return BOOKS.find(b=>b.id===id); }
 
 // PUBLIC_INTERFACE
 export const api = {
   /** Books listing */
   async listBooks() {
-    return apiFetch('/api/books', { method: 'GET' });
+    await delay();
+    return BOOKS;
   },
   /** Single book */
   async getBook(id) {
-    return apiFetch(`/api/books/${encodeURIComponent(id)}`, { method: 'GET' });
+    await delay();
+    const b = findBook(id);
+    if(!b) throw new Error('Book not found');
+    return { book: b };
   },
-  /** Auth endpoints */
+  /** Auth endpoints (mock) */
   async login(payload) {
-    return apiFetch('/api/auth/login', { method: 'POST', body: JSON.stringify(payload) });
+    await delay();
+    const { username } = payload || {};
+    CURRENT_USER = { id: 'u1', username: username || 'user' };
+    return { user: CURRENT_USER };
   },
   async register(payload) {
-    return apiFetch('/api/auth/register', { method: 'POST', body: JSON.stringify(payload) });
+    await delay();
+    const { username='newuser' } = payload || {};
+    CURRENT_USER = { id: 'u2', username };
+    return { user: CURRENT_USER };
   },
   async logout() {
-    return apiFetch('/api/auth/logout', { method: 'POST' });
+    await delay();
+    CURRENT_USER = null;
+    return { ok: true };
   },
   async me() {
-    return apiFetch('/api/auth/me', { method: 'GET' });
+    await delay();
+    return { user: CURRENT_USER };
   },
-  /** Cart endpoints */
+  /** Cart endpoints (mock) */
   async getCart() {
-    return apiFetch('/api/cart', { method: 'GET' });
+    await delay();
+    return { items: CART.slice() };
   },
   async addToCart(bookId, quantity = 1) {
-    return apiFetch('/api/cart', { method: 'POST', body: JSON.stringify({ bookId, quantity }) });
+    await delay();
+    const book = findBook(bookId);
+    if(!book) throw new Error('Book not found');
+    const existing = CART.find(it=>it.bookId===bookId);
+    if (existing) {
+      existing.quantity += quantity;
+      existing.totalPrice = existing.quantity * existing.price;
+    } else {
+      CART.push({
+        id: ensureItemId(),
+        bookId,
+        title: book.title,
+        price: book.price,
+        quantity,
+        image: book.image,
+        totalPrice: quantity * book.price
+      });
+    }
+    return { items: CART.slice() };
   },
   async updateCartItem(itemId, quantity) {
-    return apiFetch(`/api/cart/${encodeURIComponent(itemId)}`, { method: 'PUT', body: JSON.stringify({ quantity }) });
+    await delay();
+    const it = CART.find(i=>i.id===itemId);
+    if(!it) throw new Error('Item not found');
+    it.quantity = Math.max(1, Number(quantity||1));
+    it.totalPrice = it.quantity * it.price;
+    return { item: it };
   },
   async removeCartItem(itemId) {
-    return apiFetch(`/api/cart/${encodeURIComponent(itemId)}`, { method: 'DELETE' });
+    await delay();
+    CART = CART.filter(i=>i.id!==itemId);
+    return { ok: true };
   },
   async clearCart() {
-    return apiFetch('/api/cart', { method: 'DELETE' });
+    await delay();
+    CART = [];
+    return { ok: true };
   },
-  /** Checkout / Orders */
+  /** Checkout / Orders (noop) */
   async checkout(payload) {
-    return apiFetch('/api/checkout', { method: 'POST', body: JSON.stringify(payload) });
+    await delay();
+    return { ok: true, orderId: 'order_' + Date.now() };
   },
   async getOrder(orderId) {
-    return apiFetch(`/api/orders/${encodeURIComponent(orderId)}`, { method: 'GET' });
+    await delay();
+    return { orderId, status:'PAID' };
   },
-  /** Profile */
+  /** Profile (noop) */
   async updateProfile(payload) {
-    return apiFetch('/api/profile', { method: 'PUT', body: JSON.stringify(payload) });
+    await delay();
+    if (!CURRENT_USER) throw new Error('Not logged in');
+    return { ok: true, user: { ...CURRENT_USER, ...payload } };
   }
 };

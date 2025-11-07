@@ -7,7 +7,7 @@ export const CartContext = createContext(null);
 
 /**
  * PUBLIC_INTERFACE
- * Provides shopping cart state backed by session (server cart), with local cache.
+ * Provides shopping cart state backed by local mock API for standalone UI.
  */
 export function CartProvider({ children }) {
   const { user } = useAuth();
@@ -27,7 +27,7 @@ export function CartProvider({ children }) {
   };
 
   useEffect(() => {
-    // Refresh cart whenever auth changes (session cookies may change)
+    // Initial load and whenever auth changes
     refresh();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
