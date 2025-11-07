@@ -16,11 +16,17 @@ function startServer() {
   const HOST = process.env.HOST || '0.0.0.0';
 
   // Extra startup diagnostics
-  console.log(`[startup] Attempting to bind HTTP server on ${HOST}:${PORT} (NODE_ENV=${process.env.NODE_ENV || 'development'})`);
+  const env = process.env.NODE_ENV || 'development';
+  // eslint-disable-next-line no-console
+  console.log(`[startup] Attempting to bind HTTP server on ${HOST}:${PORT} (NODE_ENV=${env}, pid=${process.pid})`);
 
   const server = app
     .listen(PORT, HOST, () => {
-      console.log(`Server running at http://${HOST}:${PORT}`);
+      const url = `http://${HOST}:${PORT}`;
+      // eslint-disable-next-line no-console
+      console.log(`[startup] Server listening on ${url} (pid=${process.pid})`);
+      // eslint-disable-next-line no-console
+      console.log(`[startup] Health: ${url}/health  |  Docs: ${url.replace(/\/+$/, '')}/docs`);
     })
     .on('error', (err) => {
       // Robust error handling for common listen errors
@@ -30,8 +36,8 @@ function startServer() {
             `Port ${PORT} is already in use on host ${HOST}.`,
             'Hint: Another instance may already be running.',
             'Actions:',
-            `- If in development, kill the existing process using this port.`,
-            `- Or set a different PORT in environment variables.`,
+            `- Respect the existing process if managed by the platform (hot reload may pick changes).`,
+            `- Or set a different PORT in the .env file or environment variables.`,
           ],
           EACCES: [
             `Insufficient privileges to bind to ${HOST}:${PORT}.`,
@@ -41,11 +47,14 @@ function startServer() {
           ],
         }[err.code];
 
+        // eslint-disable-next-line no-console
         console.error(`[startup] Listen error (${err.code}): ${err.message}`);
         if (hints) {
+          // eslint-disable-next-line no-console
           console.error(hints.join('\n'));
         }
       } else {
+        // eslint-disable-next-line no-console
         console.error('Failed to start HTTP server:', err && err.message ? err.message : err);
       }
       process.exitCode = 1;
@@ -53,18 +62,23 @@ function startServer() {
 
   // Graceful shutdown
   process.on('SIGTERM', () => {
+    // eslint-disable-next-line no-console
     console.log('SIGTERM signal received: closing HTTP server');
     server.close(() => {
+      // eslint-disable-next-line no-console
       console.log('HTTP server closed');
       process.exit(0);
     });
   });
 
+  // Startup global error logs
   process.on('unhandledRejection', (reason) => {
+    // eslint-disable-next-line no-console
     console.error('Unhandled Promise Rejection:', reason);
   });
 
   process.on('uncaughtException', (err) => {
+    // eslint-disable-next-line no-console
     console.error('Uncaught Exception:', err);
   });
 
