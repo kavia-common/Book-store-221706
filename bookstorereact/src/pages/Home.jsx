@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { api } from '../api/client';
+import booksData from '../data/books.json';
 import { useCart } from '../contexts/CartContext';
 import { withImageFallback } from '../utils/imageFallback';
 
@@ -9,6 +9,10 @@ import { withImageFallback } from '../utils/imageFallback';
  * - Typography scale for title/author/price aligns with PHP CSS.
  * - Price/Add-to-cart section baseline-aligned.
  * - Hover/focus styles tuned via CSS classes (no behavioral changes).
+ *
+ * Data:
+ * - Uses local JSON (src/data/books.json) exported from PHP dataset to match titles, categories, prices, images, and order.
+ * - No backend/API calls.
  */
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -16,19 +20,9 @@ export default function Home() {
   const { add, items, clear } = useCart();
 
   useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const data = await api.listBooks();
-        const list = Array.isArray(data) ? data : (data?.books || []);
-        if (!cancelled) setBooks(list);
-      } catch {
-        if (!cancelled) setBooks([]);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => { cancelled = true; };
+    // Load from local JSON (no network). Keep order exactly as defined.
+    setBooks(Array.isArray(booksData) ? booksData : []);
+    setLoading(false);
   }, []);
 
   const total = useMemo(
@@ -71,7 +65,7 @@ export default function Home() {
                   <div className="php-cta">
                     <div className="php-price-badge">RM{b.price}</div>
                     <div className="php-qty">
-                      Quantity:{" "}
+                      Quantity:{' '}
                       <input
                         className="php-qty-input"
                         type="number"
@@ -99,7 +93,7 @@ export default function Home() {
         </tbody>
       </table>
 
-      {/* Right cart table (unchanged functionally; styling matched to PHP) */}
+      {/* Right cart table (styling matched to PHP) */}
       <table className="php-sidebar">
         <thead>
           <tr>

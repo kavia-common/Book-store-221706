@@ -161,7 +161,7 @@ textarea:focus {
 /* Card cell and card block to mimic PHP table cards */
 .php-cardcell{
     vertical-align: top;
-    padding: 8px;              /* matches PHP td inline style padding:5–8px */
+    padding: 5px;              /* PHP table td padding closer to 5px */
     width: 25%;                /* 4 across within 80% grid area */
     box-sizing: border-box;
 }
@@ -169,7 +169,7 @@ textarea:focus {
     background:#fff;
     border:1px solid #ccc;
     border-radius:4px;
-    padding: 8px;              /* internal spacing consistent with PHP table rows */
+    padding: 5px;              /* internal spacing to align with PHP */
     transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 .php-card:hover,
