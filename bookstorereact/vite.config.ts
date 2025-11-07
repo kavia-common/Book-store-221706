@@ -20,11 +20,13 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       host: true,
-      port: Number(env.REACT_APP_PORT || 5173),
+      port: 3000,
+      strictPort: true,
     },
     preview: {
       host: true,
-      port: Number(env.REACT_APP_PORT || 5173),
+      port: 3000,
+      strictPort: true,
     },
   };
 });
