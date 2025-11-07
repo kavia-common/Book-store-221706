@@ -4,8 +4,15 @@
  * - Listens on PORT (default 3001) and HOST (default 0.0.0.0)
  * - Adds graceful shutdown and basic error handlers
  */
-const dotenv = require('dotenv');
-dotenv.config();
+
+// Safely load environment variables from .env if available without crashing
+try {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+} catch (e) {
+  // If dotenv is not installed or .env is absent, continue with defaults
+  console.warn('[startup] dotenv not loaded, proceeding with environment defaults.');
+}
 
 const app = require('./app');
 
