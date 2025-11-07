@@ -4,12 +4,10 @@
   "description": "Minimal Express app with scalable structure",
   "main": "src/server.js",
   "scripts": {
-    "prestart": "sh -c \"(npm ci || echo 'npm ci failed, falling back to npm install') && (npm install || true)\"",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest",
-    "lint": "eslint .",
-    "prepare": "sh -c \"(npm ci || true) && (npm install || true)\""
+    "lint": "eslint ."
   },
   "dependencies": {
     "cors": "2.8.5",
