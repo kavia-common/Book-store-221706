@@ -1,0 +1,13 @@
+:root{
+  --brand-primary: #0E4168;
+  --brand-primary-700: #0B3554;
+  --brand-primary-200: #E6EFF6;
+  --bg-canvas: #FFFFFF;
+  --bg-card: #F3F3F3;
+  --text-primary: #222222;
+  --text-secondary: #666666;
+  --text-inverse: #FFFFFF;
+  --pill-badge: #F0F6FB;
+  --shadow-ink: rgba(0,0,0,0.08);
+  --border-subtle: #E0E0E0;
+}

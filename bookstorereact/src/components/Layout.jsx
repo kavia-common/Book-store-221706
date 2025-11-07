@@ -12,7 +12,18 @@ export default function Layout({ children }) {
     <>
       <header className="header">
         <div className="row">
-          <div className="brand"><Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>Book Store</Link></div>
+          <div className="brand">
+            <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
+              {/* Simple logo mark to mimic PHP header logo spacing */}
+              <span style={{
+                display:'inline-block',
+                width:28, height:28, borderRadius:'50%',
+                background:'rgba(255,255,255,0.2)',
+                verticalAlign:'middle', marginRight:8
+              }}/>
+              <span>Book Store</span>
+            </Link>
+          </div>
           <nav className="nav">
             <Link to="/cart" className="small" style={{ color:'#fff' }}>Cart ({cartCount})</Link>
             {loading ? (
@@ -20,12 +31,12 @@ export default function Layout({ children }) {
             ) : user ? (
               <>
                 <Link to="/profile" className="small" style={{ color:'#fff' }}>{user.username || 'Profile'}</Link>
-                <button className="btn secondary" onClick={logout}>Logout</button>
+                <button className="btn" onClick={logout}>Logout</button>
               </>
             ) : (
               <>
-                <Link to="/login" className="small" style={{ color:'#fff' }}>Login</Link>
-                <Link to="/register" className="small" style={{ color:'#fff' }}>Register</Link>
+                <Link to="/login" className="btn" style={{ textDecoration:'none' }}>Login</Link>
+                <Link to="/register" className="btn secondary" style={{ textDecoration:'none' }}>Register</Link>
               </>
             )}
           </nav>
