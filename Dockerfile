@@ -1,8 +1,11 @@
 # Use official PHP-Apache image
 FROM php:8.2-apache
 
+# Make RUN use bash with robust flags to avoid partial command errors
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # Install required PHP extensions (mysqli and pdo_mysql are used by the app)
-RUN set -eux; \
+RUN set -euxo pipefail; \
     docker-php-ext-install mysqli pdo pdo_mysql
 
 # Configure Apache document root
