@@ -27,8 +27,7 @@ export default function Login() {
 
   return (
     <div className="form-panel" role="region" aria-label="Login panel">
-      <div aria-hidden="true" style={{height:8}} />
-      <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8 }}>
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8, paddingTop:4 }}>
         <span aria-hidden="true" style={{
           display:'inline-block', width:48, height:28,
           backgroundImage:'url(/assets/php_login.svg)',
@@ -36,7 +35,7 @@ export default function Login() {
           marginRight:8
         }}/>
       </div>
-      <h1 style={{ fontSize:24, fontWeight:600, margin:'0 0 16px 0' }}>Login</h1>
+      <h1 style={{ fontSize:24, fontWeight:600, margin:'0 0 16px 0', letterSpacing:'.2px' }}>Login</h1>
       {!!error && <div className="small" style={{ color:'#C62828', marginBottom:12 }}>{error}</div>}
       <form onSubmit={onSubmit} noValidate>
         <div className="field">

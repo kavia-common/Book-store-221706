@@ -20,6 +20,14 @@
   --card: #ffffff;
   --accent:#66ffff;
   --border: var(--border-subtle);
+
+  /* Spacing scale */
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 24px;
+  --space-7: 32px;
 }
 
 *{box-sizing:border-box}
@@ -52,7 +60,7 @@ a:hover{text-decoration:underline}
   justify-content:space-between;
   max-width:1240px;
   margin:0 auto;
-  padding: 0 24px;
+  padding: 0 var(--space-6);
 }
 .header .brand{
   display:flex;
@@ -74,8 +82,8 @@ a:hover{text-decoration:underline}
 
 .container{
   max-width:1240px;
-  margin: 24px auto;
-  padding: 0 24px;
+  margin: var(--space-6) auto;
+  padding: 0 var(--space-6);
 }
 
 .card{
@@ -86,10 +94,20 @@ a:hover{text-decoration:underline}
   padding:16px;
 }
 
+/* Product grid tuned to notes: fixed min width, consistent gutters */
 .grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
   gap:24px;
+}
+@media (max-width: 1199px){
+  .grid{ grid-template-columns: repeat(3, minmax(240px, 1fr)); }
+}
+@media (max-width: 991px){
+  .grid{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 767px){
+  .grid{ grid-template-columns: 1fr; }
 }
 
 /* Inputs and form controls */
@@ -102,10 +120,15 @@ a:hover{text-decoration:underline}
   font-size:14px;
   background:#fff;
   outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease, background-color .12s ease;
+}
+.input:hover, .select:hover, .textarea:hover{
+  border-color: #cfd6dc;
 }
 .input:focus, .select:focus, .textarea:focus{
   border-color: var(--brand-primary);
   box-shadow: 0 0 0 2px rgba(14,65,104,0.15);
+  background-color:#fff;
 }
 .textarea{ height:120px; }
 .label{font-size:13px; color:var(--text-secondary); margin-bottom:6px; display:block; font-weight:500}
@@ -123,12 +146,23 @@ a:hover{text-decoration:underline}
   font-weight:600;
   line-height:1;
   height:36px;
+  transition: background-color .12s ease, box-shadow .12s ease, transform .08s ease;
 }
 .btn:hover{ background: var(--brand-primary-700); }
+.btn:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(14,65,104,0.25);
+}
+.btn:active{
+  transform: translateY(0.5px);
+}
 .btn.secondary{
   background:#fff;
   color:#000;
   border:1px solid var(--border-subtle);
+}
+.btn.secondary:hover{
+  background: #fafafa;
 }
 .btn.ghost{
   background:transparent;
@@ -161,18 +195,22 @@ a:hover{text-decoration:underline}
   display:grid;
   grid-template-columns: 1fr 320px;
   gap:24px;
+  align-items:start;
+}
+@media (max-width: 1199px){
+  .page-home{ grid-template-columns: 1fr 300px; }
 }
 @media (max-width: 991px){
-  .page-home{
-    grid-template-columns: 1fr;
-  }
+  .page-home{ grid-template-columns: 1fr; }
 }
 
 /* Product card hover state */
+.card.product{
+  transition: box-shadow .16s ease, transform .16s ease;
+}
 .card.product:hover{
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-  transition: all .16s ease;
 }
 
 /* Price pill badge */
@@ -205,15 +243,36 @@ a:hover{text-decoration:underline}
   margin:12px 0;
 }
 
-/* Form panel (Login / Edit Profile) */
+/* Form panel (Login / Signup) visuals tuned to screenshot */
 .form-panel{
   max-width: 840px;
-  margin: 24px auto;
-  background: var(--bg-card);
+  margin: var(--space-6) auto;
+  background: linear-gradient(0deg, rgba(255,255,255,0.7), rgba(255,255,255,0.7)), var(--bg-card);
   border:1px solid var(--border-subtle);
   border-radius:6px;
   box-shadow: 0 1px 2px var(--shadow-ink);
   padding:24px;
+  position: relative;
+  overflow: hidden;
+}
+.form-panel::before{
+  /* subtle header strip behind logo area */
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:8px;
+  background: var(--brand-primary);
 }
 .form-panel .field + .field{ margin-top: 8px; }
 .form-panel .btn + .btn{ margin-left: 8px; }
+.form-panel .btn{
+  min-width: 112px;
+}
+
+/* Micro interactions for links inside form panel */
+.form-panel a.small:hover{
+  color: var(--brand-primary-700);
+  text-decoration: underline;
+}
