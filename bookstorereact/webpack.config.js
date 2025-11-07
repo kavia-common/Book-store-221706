@@ -16,10 +16,15 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'public')
     },
+    host: '0.0.0.0',            // Bind to all interfaces for container/preview access
     port: 3000,
-    historyApiFallback: true,
+    allowedHosts: 'all',         // Accept any host header (prevents "Invalid Host header")
+    historyApiFallback: true,    // SPA routing support
     hot: true,
-    compress: true
+    compress: true,
+    client: {
+      webSocketURL: 'auto://0.0.0.0:0/ws' // Let preview proxy rewrite WS URL automatically
+    }
   },
   module: {
     rules: [
