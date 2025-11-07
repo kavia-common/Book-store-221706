@@ -5,11 +5,10 @@
   "description": "React frontend scaffold for Book Store (reference-only, independent of PHP backend).",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "dev": "vite",
+    "start": "vite --port 3000 --strictPort",
+    "dev": "vite --port 3000 --strictPort",
     "build": "vite build",
-    "preview": "vite preview --port 3000 --strictPort",
-    "postinstall": "node -e \"console.log('postinstall check: dependencies present')\""
+    "preview": "vite preview --port 3000 --strictPort"
   },
   "dependencies": {
     "react": "^18.3.1",
