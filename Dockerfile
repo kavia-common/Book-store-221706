@@ -11,9 +11,11 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html
 # Copy application code
 COPY bookstore/ ${APACHE_DOCUMENT_ROOT}/
 
-# Copy and ensure the entrypoint is executable (LF endings recommended)
+# Copy entrypoint and enforce LF line endings + executable bit
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN set -eux; \
+    sed -i 's/\r$//' /usr/local/bin/entrypoint.sh; \
+    chmod +x /usr/local/bin/entrypoint.sh
 
 # Apache runs on port 80 by default
 EXPOSE 80
