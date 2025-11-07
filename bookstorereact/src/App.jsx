@@ -22,7 +22,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              {/* Preserve both /register and /signup routes as per PHP "Register" naming */}
+              <Route path="/register" element={<Signup />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/books/:id" element={<BookDetail />} />

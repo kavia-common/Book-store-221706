@@ -4,22 +4,22 @@ import { useAuth } from '../contexts/AuthContext';
 
 // PUBLIC_INTERFACE
 export default function Signup() {
-  /** Signup page that matches Login visual style using form-panel and shared tokens. */
+  /** Signup styled to match PHP register.php UI exactly using .container and .button. */
   const nav = useNavigate();
   const { register } = useAuth();
   const [form, setForm] = useState({
     name: '',
     username: '',
     password: '',
+    ic: '',
     email: '',
     contact: '',
-    ic: '',
     gender: '',
     address: '',
   });
   const [error, setError] = useState('');
 
-  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const onChange = (e) => setForm((f)=>({ ...f, [e.target.name]: e.target.value }));
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -33,61 +33,44 @@ export default function Signup() {
   };
 
   return (
-    <div className="form-panel" role="region" aria-label="Signup panel">
-      <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8, paddingTop:4 }}>
-        <span aria-hidden="true" style={{
-          display:'inline-block', width:48, height:28,
-          backgroundImage:'url(/assets/php_login.svg)',
-          backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'left center',
-          marginRight:8
-        }}/>
+    <div>
+      <div className="container">
+        <form onSubmit={onSubmit}>
+          <h1>Register:</h1>
+
+          Full Name:<br/><input type="text" name="name" placeholder="Full Name" value={form.name} onChange={onChange} />
+          <br/><br/>
+
+          User Name:<br/><input type="text" name="username" placeholder="User Name" value={form.username} onChange={onChange} />
+          <br/><br/>
+
+          New Password:<br/><input type="password" name="password" placeholder="Password" value={form.password} onChange={onChange} />
+          <br/><br/>
+
+          IC Number:<br/><input type="text" name="ic" placeholder="xxxxxx-xx-xxxx" value={form.ic} onChange={onChange} />
+          <br/><br/>
+
+          E-mail:<br/><input type="text" name="email" placeholder="example@email.com" value={form.email} onChange={onChange} />
+          <br/><br/>
+
+          Mobile Number:<br/><input type="text" name="contact" placeholder="012-3456789" value={form.contact} onChange={onChange} />
+          <br/><br/>
+
+          <label>Gender:</label><br/>
+          <label><input type="radio" name="gender" value="Male" checked={form.gender==='Male'} onChange={onChange}/>Male</label>
+          <label style={{ marginLeft: 12 }}><input type="radio" name="gender" value="Female" checked={form.gender==='Female'} onChange={onChange}/>Female</label>
+          <br/><br/>
+
+          <label>Address:</label><br/>
+          <textarea name="address" cols={50} rows={5} placeholder="Address" value={form.address} onChange={onChange} />
+          <br/><br/>
+
+          {!!error && <div style={{ color:'red', marginBottom:12 }}>{error}</div>}
+
+          <input className="button" type="submit" value="Submit" />
+          <Link to="/" className="button" style={{ textDecoration:'none', marginLeft:8 }}>Cancel</Link>
+        </form>
       </div>
-      <h1 style={{ fontSize: 24, fontWeight: 600, margin: '0 0 16px 0', letterSpacing: '.2px' }}>Create account</h1>
-      {!!error && <div className="small" style={{ color: '#C62828', marginBottom: 12 }}>{error}</div>}
-      <form onSubmit={onSubmit} noValidate>
-        <div className="field">
-          <label htmlFor="name" className="label">Full Name</label>
-          <input id="name" name="name" className="input" value={form.name} onChange={onChange} placeholder="Full Name" required />
-        </div>
-        <div className="field">
-          <label htmlFor="username" className="label">Username</label>
-          <input id="username" name="username" className="input" value={form.username} onChange={onChange} placeholder="User Name" required />
-        </div>
-        <div className="field">
-          <label htmlFor="password" className="label">Password</label>
-          <input id="password" type="password" name="password" className="input" value={form.password} onChange={onChange} placeholder="Password" required />
-        </div>
-        <div className="field">
-          <label htmlFor="ic" className="label">IC Number</label>
-          <input id="ic" name="ic" className="input" value={form.ic} onChange={onChange} placeholder="xxxxxx-xx-xxxx" />
-        </div>
-        <div className="field">
-          <label htmlFor="email" className="label">Email</label>
-          <input id="email" type="email" name="email" className="input" value={form.email} onChange={onChange} placeholder="example@email.com" />
-        </div>
-        <div className="field">
-          <label htmlFor="contact" className="label">Mobile Number</label>
-          <input id="contact" name="contact" className="input" value={form.contact} onChange={onChange} placeholder="012-3456789" />
-        </div>
-        <div className="field">
-          <label htmlFor="gender" className="label">Gender</label>
-          <select id="gender" name="gender" className="select" value={form.gender} onChange={onChange}>
-            <option value="">Select</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="address" className="label">Address</label>
-          <textarea id="address" name="address" className="textarea" rows="3" value={form.address} onChange={onChange} placeholder="Address" />
-        </div>
-        <div className="toolbar" style={{ marginTop: 8, flexWrap: 'wrap' }}>
-          <button className="btn" type="submit">Create account</button>
-          <Link to="/" className="btn secondary" style={{ textDecoration: 'none' }}>Cancel</Link>
-          <div className="spacer" />
-          <Link to="/login" className="small">Already have an account? Login</Link>
-        </div>
-      </form>
     </div>
   );
 }

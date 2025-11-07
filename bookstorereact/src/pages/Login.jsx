@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
+/**
+ * Login page visually mirrors PHP login.php:
+ * - Uses header already in Layout
+ * - Uses .container wrapper and .button classes
+ */
 export default function Login() {
   const nav = useNavigate();
   const location = useLocation();
@@ -23,57 +28,20 @@ export default function Login() {
     }
   };
 
-  const inputErrorStyle = error ? { borderColor: '#C62828', boxShadow:'0 0 0 2px rgba(198,40,40,0.12)' } : {};
-
   return (
-    <div className="form-panel" role="region" aria-label="Login panel">
-      <div style={{ display:'flex', alignItems:'center', justifyContent:'flex-start', marginBottom:8, paddingTop:4 }}>
-        <span aria-hidden="true" style={{
-          display:'inline-block', width:48, height:28,
-          backgroundImage:'url(/assets/php_login.svg)',
-          backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'left center',
-          marginRight:8
-        }}/>
+    <div>
+      <div className="container">
+        <center><h1>Login</h1></center>
+        {!!error && <div style={{ color:'red', marginBottom: 8, textAlign:'center' }}>{error}</div>}
+        <form onSubmit={onSubmit} method="post">
+          Username:<br/><input type="text" name="username" value={form.username} onChange={onChange} />
+          <br/><br/>
+          Password:<br/><input type="password" name="password" value={form.password} onChange={onChange} />
+          <br/><br/>
+          <input className="button" type="submit" value="Login"/>
+          <Link to="/" className="button" style={{ textDecoration:'none', marginLeft:8 }}>Cancel</Link>
+        </form>
       </div>
-      <h1 style={{ fontSize:24, fontWeight:600, margin:'0 0 16px 0', letterSpacing:'.2px' }}>Login</h1>
-      {!!error && <div className="small" style={{ color:'#C62828', marginBottom:12 }}>{error}</div>}
-      <form onSubmit={onSubmit} noValidate>
-        <div className="field">
-          <label className="label" htmlFor="username">Username or Email</label>
-          <input
-            id="username"
-            name="username"
-            className="input"
-            value={form.username}
-            onChange={onChange}
-            aria-invalid={!!error}
-            style={inputErrorStyle}
-            placeholder="Enter your username"
-            required
-          />
-        </div>
-        <div className="field">
-          <label className="label" htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className="input"
-            value={form.password}
-            onChange={onChange}
-            aria-invalid={!!error}
-            style={inputErrorStyle}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-        <div className="toolbar" style={{ marginTop: 8, flexWrap:'wrap' }}>
-          <button className="btn" type="submit">Login</button>
-          <Link to="/" className="btn secondary" style={{ textDecoration:'none' }}>Cancel</Link>
-          <div className="spacer" />
-          <Link to="/register" className="small">Create account</Link>
-        </div>
-      </form>
     </div>
   );
 }

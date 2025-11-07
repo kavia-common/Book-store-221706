@@ -1,278 +1,148 @@
-:root{
-  /* Tokens from assets/style_guide.md and dev_css_tokens_and_layout.md */
-  --brand-primary: #0E4168;
-  --brand-primary-700: #0B3554;
-  --brand-primary-200: #E6EFF6;
-  --bg-canvas: #FFFFFF;
-  --bg-card: #F3F3F3;
-  --text-primary: #222222;
-  --text-secondary: #666666;
-  --text-inverse: #FFFFFF;
-  --pill-badge: #F0F6FB;
-  --shadow-ink: rgba(0,0,0,0.08);
-  --border-subtle: #E0E0E0;
-
-  /* Legacy aliases used in code */
-  --primary: var(--brand-primary);
-  --bg: #f7f8fa;
-  --text: var(--text-primary);
-  --muted: var(--text-secondary);
-  --card: #ffffff;
-  --accent:#66ffff;
-  --border: var(--border-subtle);
-
-  /* Spacing scale */
-  --space-2: 4px;
-  --space-3: 8px;
-  --space-4: 12px;
-  --space-5: 16px;
-  --space-6: 24px;
-  --space-7: 32px;
-}
-
-*{box-sizing:border-box}
-html,body,#root{height:100%}
+/* Global reset and base to match PHP CSS exactly */
 body{
-  margin:0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size:14px;
-  background: var(--bg-canvas);
-  color: var(--text-primary);
-  letter-spacing: .2px;
+    font-family: Arial;
+    margin: 0 auto;
 }
 
-a{color:var(--brand-primary); text-decoration:none}
-a:hover{text-decoration:underline}
-
-.header{
-  height:60px;
-  background: var(--brand-primary);
-  color:var(--text-inverse);
-  position: sticky;
-  top:0;
-  z-index:10;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+/* Header styles from PHP */
+header {
+    background-color: rgb(0,51,102);
+    width: 100%;
 }
-.header .row{
-  height:60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  max-width:1240px;
-  margin:0 auto;
-  padding: 0 var(--space-6);
+header img {
+    margin: 1%;
 }
-.header .brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:700;
-  font-size:20px;
-  line-height:1;
+header .hf{
+    float: right;
+    margin: 1.5%;
 }
-.header .nav{
-  display:flex;
-  gap:12px;
-  align-items:center;
+header .hi{
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    transition-duration: 0.5s; 
+    padding: 8px 30px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    margin-top: 15%;
 }
-.header .nav .btn,
-.header .nav a.small{
-  color:#fff;
+header .hi:hover{
+    background-color: #ccc;
 }
 
-.container{
-  max-width:1240px;
-  margin: var(--space-6) auto;
-  padding: 0 var(--space-6);
+/* Table and card-like elements per PHP */
+table {
+    border-collapse: collapse;
+}
+tr{background-color: #fff;}
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(0,51,102);
+    color: white;
+}
+table .btn{
+    background-color: #ec7115;
+    border: none;
+    text-align: center;
+    transition-duration: 0.5s; 
+    padding: 8px 30px;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 5%;
+}
+table .btn:hover{
+    background-color: #e3e3e3;
+    color: #ec7115;
 }
 
-.card{
-  background: #fff;
-  border:1px solid var(--border-subtle);
-  border-radius:6px;
-  box-shadow: 0 1px 2px var(--shadow-ink);
-  padding:16px;
+/* Primary pill button used across pages */
+.button{
+    background-color: rgb(0,51,102);
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    transition-duration: 0.5s; 
+    padding: 8px 30px;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 5%;
+    font-weight: bold;
+}
+.button:hover {
+    background-color: rgb(102,255,255);
+    color: #000;
 }
 
-/* Product grid tuned to notes: fixed min width, consistent gutters */
-.grid{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(240px, 1fr));
-  gap:24px;
+/* Cart header button */
+.cbtn{
+    background-color: #fff;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    transition-duration: 0.5s; 
+    padding: 8px 30px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
 }
-@media (max-width: 1199px){
-  .grid{ grid-template-columns: repeat(3, minmax(240px, 1fr)); }
-}
-@media (max-width: 991px){
-  .grid{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
-}
-@media (max-width: 767px){
-  .grid{ grid-template-columns: 1fr; }
-}
-
-/* Inputs and form controls */
-.input, .select, .textarea{
-  width:100%;
-  height:40px;
-  padding:10px 12px;
-  border:1px solid var(--border-subtle);
-  border-radius:4px;
-  font-size:14px;
-  background:#fff;
-  outline: none;
-  transition: box-shadow .12s ease, border-color .12s ease, background-color .12s ease;
-}
-.input:hover, .select:hover, .textarea:hover{
-  border-color: #cfd6dc;
-}
-.input:focus, .select:focus, .textarea:focus{
-  border-color: var(--brand-primary);
-  box-shadow: 0 0 0 2px rgba(14,65,104,0.15);
-  background-color:#fff;
-}
-.textarea{ height:120px; }
-.label{font-size:13px; color:var(--text-secondary); margin-bottom:6px; display:block; font-weight:500}
-.field{margin-bottom:12px}
-
-/* Buttons */
-.btn{
-  appearance:none;
-  border:none;
-  background: var(--brand-primary);
-  color:#fff;
-  padding:8px 16px;
-  border-radius:20px;
-  cursor:pointer;
-  font-weight:600;
-  line-height:1;
-  height:36px;
-  transition: background-color .12s ease, box-shadow .12s ease, transform .08s ease;
-}
-.btn:hover{ background: var(--brand-primary-700); }
-.btn:focus{
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(14,65,104,0.25);
-}
-.btn:active{
-  transform: translateY(0.5px);
-}
-.btn.secondary{
-  background:#fff;
-  color:#000;
-  border:1px solid var(--border-subtle);
-}
-.btn.secondary:hover{
-  background: #fafafa;
-}
-.btn.ghost{
-  background:transparent;
-  color: var(--brand-primary);
-}
-.btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
+.cbtn:hover{
+    background-color: #ccc;
 }
 
-/* Lists */
-.list{
-  list-style:none;
-  padding:0;
-  margin:0;
+/* Forms to match PHP look */
+form{
+	margin-top: 2%;
 }
-.list li{
-  padding:10px 0;
-  border-bottom:1px solid var(--border-subtle);
+input[type=text], input[type=password]{	
+	width: 100%;
+	padding: 12px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    transition: 0.5s;
+    outline: none;
 }
-
-/* Utility text */
-.price{font-weight:700; color:var(--brand-primary)}
-.small{font-size:12px; color:var(--text-secondary)}
-.toolbar{display:flex; gap:8px; align-items:center}
-.spacer{flex:1}
-
-/* Home layout with sidebar (matches notes) */
-.page-home{
-  display:grid;
-  grid-template-columns: 1fr 320px;
-  gap:24px;
-  align-items:start;
+input[type=text]:focus, input[type=password]:focus {
+    border: 2px solid rgb(0,51,102);
 }
-@media (max-width: 1199px){
-  .page-home{ grid-template-columns: 1fr 300px; }
+textarea {
+	outline: none;
+	border: 2px solid #ccc;
 }
-@media (max-width: 991px){
-  .page-home{ grid-template-columns: 1fr; }
+textarea:focus {
+	border: 2px solid rgb(0,51,102);
 }
 
-/* Product card hover state */
-.card.product{
-  transition: box-shadow .16s ease, transform .16s ease;
-}
-.card.product:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-}
-
-/* Price pill badge */
-.badge-price{
-  display:inline-block;
-  background: var(--pill-badge);
-  color: var(--brand-primary);
-  border-radius:12px;
-  padding:2px 6px;
-  font-size:12px;
-  font-weight:600;
+/* Container used by login/register panels */
+.container {
+	width: 55%;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin: 0 auto;
 }
 
-/* Sidebar panel */
-.aside-panel{
-  background: var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:6px;
-  box-shadow: 0 1px 2px var(--shadow-ink);
-  padding:16px;
+/* Utility classes used by React pages to reuse PHP look */
+.php-form-title{
+    text-align:center;
 }
-.aside-title{
-  font-size:20px;
-  font-weight:600;
-  margin:0 0 12px 0;
+.php-grid{
+    width:80%;
+    float:left;
 }
-.divider{
-  height:1px;
-  background: var(--border-subtle);
-  margin:12px 0;
+.php-sidebar{
+    width:20%;
+    float:right;
+    background:#fff;
+    border:1px solid #ccc;
+    border-radius:4px;
+    padding:8px;
 }
-
-/* Form panel (Login / Signup) visuals tuned to screenshot */
-.form-panel{
-  max-width: 840px;
-  margin: var(--space-6) auto;
-  background: linear-gradient(0deg, rgba(255,255,255,0.7), rgba(255,255,255,0.7)), var(--bg-card);
-  border:1px solid var(--border-subtle);
-  border-radius:6px;
-  box-shadow: 0 1px 2px var(--shadow-ink);
-  padding:24px;
-  position: relative;
-  overflow: hidden;
-}
-.form-panel::before{
-  /* subtle header strip behind logo area */
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:8px;
-  background: var(--brand-primary);
-}
-.form-panel .field + .field{ margin-top: 8px; }
-.form-panel .btn + .btn{ margin-left: 8px; }
-.form-panel .btn{
-  min-width: 112px;
-}
-
-/* Micro interactions for links inside form panel */
-.form-panel a.small:hover{
-  color: var(--brand-primary-700);
-  text-decoration: underline;
+.php-price{
+    font-weight:bold;
+    color: rgb(0,51,102);
 }
