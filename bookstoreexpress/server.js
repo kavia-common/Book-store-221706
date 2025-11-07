@@ -26,7 +26,7 @@ function createApp() {
   // PUBLIC_INTERFACE
   app.get('/health', (req, res) => {
     /** Returns a simple ok status for readiness/liveness checks. */
-    res.json({ status: 'ok' });
+    res.status(200).json({ status: 'ok' });
   });
 
   // Load OpenAPI spec from YAML
@@ -89,11 +89,33 @@ function createApp() {
 // Start server
 const app = createApp();
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Book-store-backend listening on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/health`);
-  console.log(`Swagger UI:   http://localhost:${PORT}/docs`);
+// Read PORT from environment with default 3001, and bind to 0.0.0.0
+const PORT = Number(process.env.PORT) || 3001;
+const HOST = '0.0.0.0';
+
+// Create the server with explicit host binding for container environments
+const server = app.listen(PORT, HOST, () => {
+  console.log(`Book-store-backend listening on http://${HOST}:${PORT}`);
+  console.log(`Health check:  http://localhost:${PORT}/health`);
+  console.log(`Swagger UI:    http://localhost:${PORT}/docs`);
+});
+
+// Graceful shutdown on SIGTERM
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM, shutting down gracefully...');
+  server.close(() => {
+    console.log('HTTP server closed.');
+    process.exit(0);
+  });
+});
+
+// Also handle SIGINT for local dev (Ctrl+C)
+process.on('SIGINT', () => {
+  console.log('Received SIGINT, shutting down gracefully...');
+  server.close(() => {
+    console.log('HTTP server closed.');
+    process.exit(0);
+  });
 });
 
 module.exports = app;

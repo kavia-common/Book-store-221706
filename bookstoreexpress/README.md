@@ -6,7 +6,7 @@ Minimal Express server providing:
 - GET /openapi.json and /openapi.yaml — OpenAPI spec
 
 Scripts:
-- npm start — starts server with Node (port 4000 by default)
+- npm start — starts server with Node (defaults to port 3001; override with PORT env)
 - npm run dev — starts with nodemon auto-reload
 
 Dependencies:
@@ -18,5 +18,5 @@ Start:
 2) npm install
 3) npm start
 Then visit:
-- http://localhost:4000/health
-- http://localhost:4000/docs
+- http://localhost:3001/health
+- http://localhost:3001/docs
