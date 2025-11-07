@@ -1,9 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import swaggerUi from 'swagger-ui-express';
-import fs from 'fs';
-import path from 'path';
-import yaml from 'js-yaml';
+const express = require('express');
+const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
 
 /**
  * PUBLIC_INTERFACE
@@ -30,7 +30,6 @@ function createApp() {
   });
 
   // Load OpenAPI spec from YAML
-  const __dirname = path.dirname(new URL(import.meta.url).pathname);
   const openapiYamlPath = path.join(__dirname, 'openapi.yaml');
 
   let openapiDocument = {};
@@ -97,4 +96,4 @@ app.listen(PORT, () => {
   console.log(`Swagger UI:   http://localhost:${PORT}/docs`);
 });
 
-export default app;
+module.exports = app;

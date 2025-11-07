@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Minimal Express server for Book-store-backend with health check and Swagger UI",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "NODE_ENV=development node server.js"
+    "dev": "nodemon --watch . server.js"
   },
   "keywords": [
     "express",
@@ -21,5 +20,8 @@
     "express": "^4.19.2",
     "js-yaml": "^4.1.0",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
