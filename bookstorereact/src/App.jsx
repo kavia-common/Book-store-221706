@@ -3,11 +3,11 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import { getTheme } from './theme';
 
 // Route components (placeholders)
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import Cart from './pages/Cart';
-import Profile from './pages/Profile';
-import Orders from './pages/Orders';
+import Home from './pages/Home.jsx';
+import Catalog from './pages/Catalog.jsx';
+import Cart from './pages/Cart.jsx';
+import Profile from './pages/Profile.jsx';
+import Orders from './pages/Orders.jsx';
 
 // PUBLIC_INTERFACE
 export default function App() {
@@ -54,7 +54,7 @@ function NavItem({ to, label, end }) {
     <NavLink
       to={to}
       end={end}
-      className={({ isActive }) => isActive ? 'active' : undefined}
+      className={({ isActive }) => (isActive ? 'active' : undefined)}
       aria-label={label}
     >
       {label}
