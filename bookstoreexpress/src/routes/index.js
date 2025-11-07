@@ -2,7 +2,7 @@ const express = require('express');
 const healthController = require('../controllers/health');
 
 const router = express.Router();
-// Health endpoint
+// Health endpoints
 
 /**
  * @swagger
@@ -31,5 +31,17 @@ const router = express.Router();
  *                   example: development
  */
 router.get('/', healthController.check.bind(healthController));
+
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Health endpoint alias
+ *     description: Returns service health status for readiness/liveness probes.
+ *     responses:
+ *       200:
+ *         description: Service is healthy
+ */
+router.get('/health', healthController.check.bind(healthController));
 
 module.exports = router;
