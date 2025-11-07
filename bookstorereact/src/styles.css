@@ -1,0 +1,94 @@
+:root {
+  --color-primary: #003366;
+  --color-secondary: #ec7115;
+  --color-background: #f2f2f2;
+  --color-accent: #ffffff;
+  --text-color: #0f172a;
+}
+
+* { box-sizing: border-box; }
+
+.app-shell {
+  display: grid;
+  grid-template-rows: 56px 1fr;
+  grid-template-columns: 240px 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar content";
+  height: 100%;
+}
+
+header.app-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-primary);
+  color: var(--color-accent);
+  padding: 0 16px;
+}
+
+header.app-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+header.app-header .brand .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+}
+
+nav.sidebar {
+  grid-area: sidebar;
+  background: var(--color-accent);
+  border-right: 1px solid rgba(0,0,0,0.08);
+  padding: 12px;
+}
+
+nav.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+nav.sidebar a.active,
+nav.sidebar a:hover {
+  background: rgba(236, 113, 21, 0.1);
+  color: var(--color-secondary);
+}
+
+main.content {
+  grid-area: content;
+  padding: 16px;
+  background: var(--color-background);
+}
+
+.card {
+  background: var(--color-accent);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.placeholder-title {
+  margin: 0 0 8px 0;
+  color: var(--color-primary);
+}
+
+.badge {
+  display: inline-block;
+  background: var(--color-secondary);
+  color: var(--color-accent);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 2px 8px;
+}
