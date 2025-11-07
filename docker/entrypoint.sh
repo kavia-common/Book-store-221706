@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Minimal, safe entrypoint for php:apache-based image.
 # Requirements:
 # - LF line endings
@@ -6,11 +6,24 @@
 # - No BOM at file start
 # - Ends with a trailing newline
 
-set -e
+# Fail fast and be explicit
+set -Eeuo pipefail
+
+# If the script was accidentally committed with CRLF, strip carriage returns at runtime.
+# This handles cases where line endings slip through and cause `/bin/sh: line 2: syntax error: unexpected end of file`
+# shellcheck disable=SC2002
+if grep -q $'\r' "$0" 2>/dev/null; then
+  # Re-write the file without CR characters
+  tmpfile="$(mktemp)"
+  # Use sed to remove CR to avoid requiring dos2unix in the image
+  sed 's/\r$//' "$0" > "$tmpfile"
+  cat "$tmpfile" > "$0"
+  rm -f "$tmpfile"
+fi
 
 # Ensure document root exists
 DOC_ROOT="${APACHE_DOCUMENT_ROOT:-/var/www/html}"
-if [ ! -d "$DOC_ROOT" ]; then
+if [[ ! -d "$DOC_ROOT" ]]; then
   echo "Creating document root at $DOC_ROOT"
   mkdir -p "$DOC_ROOT"
 fi
