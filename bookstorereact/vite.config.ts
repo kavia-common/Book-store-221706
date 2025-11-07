@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     }
   });
 
-  // Force dev/preview to run on 3001 to match preview system
+  // Dev/preview ports and binding
   const vitePort = 3001;
 
   return {
@@ -23,13 +23,12 @@ export default defineConfig(({ mode }) => {
       ...defineEnv,
     },
     server: {
-      // Bind to all interfaces (0.0.0.0)
-      host: true, // host: true means 0.0.0.0
+      host: true, // 0.0.0.0
       port: vitePort,
       strictPort: true,
     },
     preview: {
-      host: true,
+      host: true, // 0.0.0.0
       port: vitePort,
       strictPort: true,
     },

@@ -4,7 +4,7 @@ import { colors } from '../theme/colors';
 
 // PUBLIC_INTERFACE
 export function Header(): JSX.Element {
-  /** A classic header bar using primary background and secondary accent for nav links. */
+  /** A classic header bar using react-router-dom (Link/NavLink) for client-side navigation. */
   return (
     <header
       style={{

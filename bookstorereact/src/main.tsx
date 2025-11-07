@@ -19,7 +19,7 @@ function bootstrap(): void {
       // Align log with preview/dev port 3001
       const port = 3001;
       // eslint-disable-next-line no-console
-      console.log(`Frontend started and mounted. Vite server expected on port ${port}`);
+      console.log(`Vite frontend started and mounted. Dev/preview port: ${port}`);
     }, []);
     return (
       <BrowserRouter>
