@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="BookstorePHPStandard">
+  <description>Basic PHP_CodeSniffer rules for the Book-store-221706 PHP app.</description>
+  <file>bookstore</file>
+  <arg name="basepath" value="."/>
+  <arg name="colors"/>
+  <arg name="extensions" value="php"/>
+  <exclude-pattern>**/vendor/**</exclude-pattern>
+
+  <!-- Generic code style -->
+  <rule ref="PSR12">
+    <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+  </rule>
+
+  <!-- Security hints -->
+  <rule ref="Generic.PHP.ForbiddenFunctions">
+    <properties>
+      <property name="forbiddenFunctions" type="array">
+        <element key="mysql_query" value="Use PDO or mysqli with prepared statements"/>
+        <element key="eval" value="Avoid eval for security"/>
+      </property>
+    </properties>
+  </rule>
+
+  <!-- Warnings for superglobals usage -->
+  <rule ref="Generic.Variables.DisallowSuperGlobal">
+    <type>warning</type>
+  </rule>
+</ruleset>
