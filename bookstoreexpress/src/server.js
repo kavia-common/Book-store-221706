@@ -5,13 +5,22 @@
  * - Adds graceful shutdown and basic error handlers
  */
 
-// Safely load environment variables from .env if available without crashing
+/**
+ * Attempt to load environment variables from .env as early as possible.
+ * Do not swallow MODULE_NOT_FOUND errors for dotenv itself; only ignore missing .env file cases.
+ */
 try {
   // eslint-disable-next-line global-require
   require('dotenv').config();
 } catch (e) {
-  // If dotenv is not installed or .env is absent, continue with defaults
-  console.warn('[startup] dotenv not loaded, proceeding with environment defaults.');
+  if (e && e.code === 'MODULE_NOT_FOUND') {
+    // Dotenv package missing: surface the error to prevent silent misconfiguration
+    console.error('dotenv module not found. Please ensure it is installed as a dependency.');
+    throw e;
+  } else {
+    // Other errors (e.g., parsing issues) should be logged but not crash the app
+    console.error('dotenv load error', e);
+  }
 }
 
 const app = require('./app');
