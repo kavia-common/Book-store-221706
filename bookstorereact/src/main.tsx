@@ -16,7 +16,8 @@ function bootstrap(): void {
   // Log a simple status message once after mount
   function StartupLogger() {
     useEffect(() => {
-      const port = (import.meta as any).env?.VITE_PORT || 3000;
+      // Align log with preview/dev port 3001
+      const port = 3001;
       // eslint-disable-next-line no-console
       console.log(`Frontend started and mounted. Vite server expected on port ${port}`);
     }, []);

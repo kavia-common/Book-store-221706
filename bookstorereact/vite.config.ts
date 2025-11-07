@@ -14,8 +14,8 @@ export default defineConfig(({ mode }) => {
     }
   });
 
-  // Read VITE_PORT from env; default to 3000
-  const vitePort = Number(env.VITE_PORT || 3000);
+  // Force dev/preview to run on 3001 to match preview system
+  const vitePort = 3001;
 
   return {
     plugins: [react()],
