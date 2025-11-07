@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Minimal, safe entrypoint for php:apache-based image.
 # Requirements:
 # - LF line endings
@@ -6,11 +6,12 @@
 # - No BOM at file start
 # - Ends with a trailing newline
 
-set -e
+# Fail fast and propagate failures across pipes; treat unset vars as errors
+set -Eeuo pipefail
 
 # Ensure document root exists
 DOC_ROOT="${APACHE_DOCUMENT_ROOT:-/var/www/html}"
-if [ ! -d "$DOC_ROOT" ]; then
+if [[ ! -d "$DOC_ROOT" ]]; then
   echo "Creating document root at ${DOC_ROOT}"
   mkdir -p "${DOC_ROOT}"
 fi
