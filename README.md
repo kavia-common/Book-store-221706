@@ -14,3 +14,6 @@ Download [bookstore](https://github.com/weixiong15/PHP_Basic_BookStore_Website/t
 [XAMPP](https://www.apachefriends.org/index.html) or other. After, you need to import [database.sql](https://github.com/weixiong15/PHP_Basic_BookStore_Website/blob/master/bookstore/database.sql) to your server/XAMPP 
 first.
  
+
+## Composer
+A minimal composer.json is included to enable dependency management if needed in the future. This app currently does not require external PHP packages.

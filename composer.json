@@ -1,0 +1,11 @@
+{
+  "name": "book-store-221706/php-app",
+  "description": "Minimal composer configuration for Book-store-221706 PHP app",
+  "type": "project",
+  "require": {
+    "php": "^8.2"
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
